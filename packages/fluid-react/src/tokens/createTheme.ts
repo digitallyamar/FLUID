@@ -1,4 +1,4 @@
-import type { ThemeContract } from "./contract";
+import type { ThemeContract } from "./contract.js";
 
 export function createTheme(input: Partial<ThemeContract>): ThemeContract {
   const required = ["color", "spacing", "radius", "typography", "shadow", "motion"] as const;

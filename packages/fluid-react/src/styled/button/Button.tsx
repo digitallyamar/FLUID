@@ -1,6 +1,6 @@
 import React from "react";
-import { useButton } from "../../headless/button/useButton";
-import type { ButtonProps } from "./types";
+import { useButton } from "../../headless/button/useButton.js";
+import type { ButtonProps } from "./types.js";
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className = "", children, ...props }, ref) => {

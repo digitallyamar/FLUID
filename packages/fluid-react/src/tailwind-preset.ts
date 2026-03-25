@@ -1,4 +1,4 @@
-import type { ThemeContract } from "./tokens/contract";
+import type { ThemeContract } from "./tokens/contract.js";
 
 export function createTailwindPreset(theme: ThemeContract) {
   return {

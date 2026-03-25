@@ -1,2 +1,2 @@
-export { useButton } from "./button/useButton";
-export type { UseButtonOptions } from "./button/types";
+export { useButton } from "./button/useButton.js";
+export type { UseButtonOptions } from "./button/types.js";

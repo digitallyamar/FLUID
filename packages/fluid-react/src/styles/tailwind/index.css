@@ -1,0 +1,12 @@
+.fluid-btn {
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.fluid-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

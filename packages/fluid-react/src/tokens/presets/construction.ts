@@ -1,4 +1,4 @@
-import { createTheme } from "../createTheme";
+import { createTheme } from "../createTheme.js";
 
 export const constructionPreset = createTheme({
   color: { primary: "#1f2937", surface: "#ffffff" },

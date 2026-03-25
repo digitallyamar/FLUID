@@ -1,4 +1,4 @@
-import { createTheme } from "../createTheme";
+import { createTheme } from "../createTheme.js";
 
 export const medicinePreset = createTheme({
   color: { primary: "#0f766e", surface: "#ffffff" },
