@@ -44,6 +44,10 @@ FLUID V1 is a single npm package with internal layering:
 - Token/theme system for controlled uniqueness
 - Precompiled CSS output for non-Tailwind consumers
 
+P1 lab app acceptance boundary:
+- local-only developer sandbox for component exploration and regression reproduction
+- no public auth, multi-user workflow, or external deployment requirements for V1 release
+
 ## Target Stack
 
 - Component runtime: React + TypeScript
@@ -283,7 +287,7 @@ Operational edge-case handling requirements:
 2. Build and publish first Tier A slice (core foundation components).
 3. Expand to Tier B breadth with daily iteration.
 4. Harden Tier A and promote selected Tier B components.
-5. Introduce initial style preset automation hooks (pre-AI full generator).
+5. Document post-V1 extension points for style preset automation without implementing generator logic in V1.
 
 ## Locked Planning Assumptions
 
