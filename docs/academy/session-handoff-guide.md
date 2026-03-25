@@ -81,6 +81,7 @@ Project rule (must enforce every session):
 Learning-mode rule for this session:
 - Explain code in short, layman terms, interactively, one line at a time.
 - After each confirmed explanation, append that understanding into `docs/academy/button-component-deep-dive.md`.
+- Do not create notes for blank lines; any skipped/missing line numbers in the deep-dive notes are implicitly blank lines.
 - Current thread to resume: `packages/fluid-react/src/headless/button/useButton.ts`, line 1 explained; continue from line 2.
 
 Then run:
