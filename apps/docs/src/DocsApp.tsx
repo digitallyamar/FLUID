@@ -19,6 +19,7 @@ import structureMapMarkdown from "../../../docs/academy/fluid-library-structure-
 import mobileReadinessMarkdown from "../../../docs/academy/mobile-readiness-backlog.md?raw";
 import backlogIndexMarkdown from "../../../docs/academy/backlog-index.md?raw";
 import buttonDeepDiveMarkdown from "../../../docs/academy/button-component-deep-dive.md?raw";
+import packageUsageTutorialMarkdown from "../../../docs/academy/fluid-package-usage-tutorial.md?raw";
 
 const componentRoutes = [
   { name: "Button", href: "/components/button" },
@@ -58,6 +59,11 @@ const academyRoutes = [
     name: "Button Component Deep Dive",
     href: "/academy/button-deep-dive",
     markdown: buttonDeepDiveMarkdown
+  },
+  {
+    name: "FLUID Package Usage Tutorial",
+    href: "/academy/package-usage-tutorial",
+    markdown: packageUsageTutorialMarkdown
   },
   {
     name: "Backlog Index",
@@ -196,6 +202,16 @@ export function DocsApp() {
           <article
             className="academy-markdown"
             dangerouslySetInnerHTML={{ __html: marked.parse(buttonDeepDiveMarkdown) }}
+          />
+        </main>
+      );
+    case "/academy/package-usage-tutorial":
+      return (
+        <main>
+          <h1>Academy: FLUID Package Usage Tutorial</h1>
+          <article
+            className="academy-markdown"
+            dangerouslySetInnerHTML={{ __html: marked.parse(packageUsageTutorialMarkdown) }}
           />
         </main>
       );
