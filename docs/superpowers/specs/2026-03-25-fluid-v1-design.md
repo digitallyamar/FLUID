@@ -2,7 +2,7 @@
 
 ## Overview
 
-FLUID ("Front Loading UI Displays") is a React-based UI component library focused on creating production-ready components that can still adapt to unique, client-specific visual identity.
+FLUID ("Flexible UI Displays") is a React-based UI component library focused on creating production-ready components that can still adapt to unique, client-specific visual identity.
 
 This V1 prioritizes:
 - shipping a broad library quickly,
