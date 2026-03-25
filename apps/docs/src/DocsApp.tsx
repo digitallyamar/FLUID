@@ -18,6 +18,7 @@ import questionBankMarkdown from "../../../docs/academy/first-principles-questio
 import structureMapMarkdown from "../../../docs/academy/fluid-library-structure-map.md?raw";
 import mobileReadinessMarkdown from "../../../docs/academy/mobile-readiness-backlog.md?raw";
 import backlogIndexMarkdown from "../../../docs/academy/backlog-index.md?raw";
+import buttonDeepDiveMarkdown from "../../../docs/academy/button-component-deep-dive.md?raw";
 
 const componentRoutes = [
   { name: "Button", href: "/components/button" },
@@ -52,6 +53,11 @@ const academyRoutes = [
     name: "FLUID Library Structure Map",
     href: "/academy/structure-map",
     markdown: structureMapMarkdown
+  },
+  {
+    name: "Button Component Deep Dive",
+    href: "/academy/button-deep-dive",
+    markdown: buttonDeepDiveMarkdown
   },
   {
     name: "Backlog Index",
@@ -180,6 +186,16 @@ export function DocsApp() {
           <article
             className="academy-markdown"
             dangerouslySetInnerHTML={{ __html: marked.parse(structureMapMarkdown) }}
+          />
+        </main>
+      );
+    case "/academy/button-deep-dive":
+      return (
+        <main>
+          <h1>Academy: Button Component Deep Dive</h1>
+          <article
+            className="academy-markdown"
+            dangerouslySetInnerHTML={{ __html: marked.parse(buttonDeepDiveMarkdown) }}
           />
         </main>
       );

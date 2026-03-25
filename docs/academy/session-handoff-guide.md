@@ -16,6 +16,7 @@ Use this guide to start a new chat/session and continue FLUID development withou
 - Design spec: `/home/amar/dev/FLUID/.worktrees/fluid-v1-implementation/docs/superpowers/specs/2026-03-25-fluid-v1-design.md`
 - Implementation plan: `/home/amar/dev/FLUID/.worktrees/fluid-v1-implementation/docs/superpowers/plans/2026-03-25-fluid-v1-implementation.md`
 - Learning doc: `/home/amar/dev/FLUID/.worktrees/fluid-v1-implementation/docs/academy/first-principles-web-fundamentals.md`
+- Button deep dive doc: `/home/amar/dev/FLUID/.worktrees/fluid-v1-implementation/docs/academy/button-component-deep-dive.md`
 
 Note:
 - `IDEA.md` and the implementation plan are now committed and pushed to origin for long-term reference.
@@ -61,7 +62,7 @@ git status --short
 ### New Session Starter Prompt
 
 ```text
-We are continuing FLUID development from an existing worktree.
+We are continuing FLUID development + guided learning from an existing worktree.
 
 Use this exact working directory:
 /home/amar/dev/FLUID/.worktrees/fluid-v1-implementation
@@ -71,10 +72,16 @@ Please read these first before making any change:
 2) docs/superpowers/plans/2026-03-25-fluid-v1-implementation.md
 3) docs/academy/first-principles-web-fundamentals.md
 4) docs/academy/session-handoff-guide.md
+5) docs/academy/button-component-deep-dive.md
 
 Project rule (must enforce every session):
 - Any new file under `docs/academy/` MUST be added to the `/academy` route index in `apps/docs/src/DocsApp.tsx`.
 - Any backlog-type academy note MUST also be listed in `docs/academy/backlog-index.md` and surfaced under the Academy Backlogs section (`/academy`).
+
+Learning-mode rule for this session:
+- Explain code in short, layman terms, interactively, one line at a time.
+- After each confirmed explanation, append that understanding into `docs/academy/button-component-deep-dive.md`.
+- Current thread to resume: `packages/fluid-react/src/headless/button/useButton.ts`, line 1 explained; continue from line 2.
 
 Then run:
 git status --short

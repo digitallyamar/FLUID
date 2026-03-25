@@ -9,6 +9,7 @@ test("academy learning doc is reachable from home and renders markdown", async (
   await expect(page.getByRole("link", { name: "Session Handoff Guide" })).toBeVisible();
   await expect(page.getByRole("link", { name: "First-Principles Question Bank" })).toBeVisible();
   await expect(page.getByRole("link", { name: "FLUID Library Structure Map" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Button Component Deep Dive" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Mobile Readiness Backlog" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Backlog Index" })).toBeVisible();
   await page.getByRole("link", { name: "First Principles Web Fundamentals" }).click();
@@ -21,6 +22,12 @@ test("academy learning doc is reachable from home and renders markdown", async (
   await expect(page).toHaveURL("http://localhost:3000/academy/question-bank");
   await expect(page.getByRole("heading", { name: "Academy: First-Principles Question Bank" })).toBeVisible();
   await expect(page.getByText("Core First-Principles Questions")).toBeVisible();
+
+  await page.goto("http://localhost:3000/academy");
+  await page.getByRole("link", { name: "Button Component Deep Dive" }).click();
+  await expect(page).toHaveURL("http://localhost:3000/academy/button-deep-dive");
+  await expect(page.getByRole("heading", { name: "Academy: Button Component Deep Dive" })).toBeVisible();
+  await expect(page.getByText("Where The Button Code Lives")).toBeVisible();
 
   await page.goto("http://localhost:3000/academy");
   await page.getByRole("link", { name: "Backlog Index" }).click();
