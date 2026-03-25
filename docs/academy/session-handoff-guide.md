@@ -17,6 +17,9 @@ Use this guide to start a new chat/session and continue FLUID development withou
 - Implementation plan: `/home/amar/dev/FLUID/.worktrees/fluid-v1-implementation/docs/superpowers/plans/2026-03-25-fluid-v1-implementation.md`
 - Learning doc: `/home/amar/dev/FLUID/.worktrees/fluid-v1-implementation/docs/academy/first-principles-web-fundamentals.md`
 
+Note:
+- `IDEA.md` and the implementation plan are now committed and pushed to origin for long-term reference.
+
 ## Progress Snapshot
 
 Latest important commits on `feature/fluid-v1-implementation`:
