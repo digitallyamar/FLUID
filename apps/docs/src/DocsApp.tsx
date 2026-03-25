@@ -281,10 +281,26 @@ export function DocsApp() {
         <ComponentPage
           name="Modal"
           sections={{
-            default: <Modal open title="Confirm">Modal content</Modal>,
-            variants: <Modal open title="Variant">Variant modal content</Modal>,
-            disabled: <p>Modal visibility is controlled by the `open` prop.</p>,
-            theming: <Modal open title="Themed" className="fluid-btn-themed">Themed modal</Modal>,
+            default: (
+              <Modal open title="Confirm" className="fluid-modal">
+                Modal content
+              </Modal>
+            ),
+            variants: (
+              <Modal open title="Variant" className="fluid-modal fluid-modal-variant">
+                Variant modal content
+              </Modal>
+            ),
+            disabled: (
+              <Modal open title="Disabled" className="fluid-modal fluid-modal-disabled">
+                Disabled-style modal preview
+              </Modal>
+            ),
+            theming: (
+              <Modal open title="Themed" className="fluid-modal fluid-modal-themed">
+                Themed modal
+              </Modal>
+            ),
             accessibility: <p>Modal uses dialog role and accessible title via aria-label.</p>
           }}
         />
