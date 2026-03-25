@@ -868,6 +868,27 @@ git add docs/academy
 git commit -m "docs: add academy learning artifacts for v1 implementation"
 ```
 
+## Next Milestone: Centralized Theme Tokenization (Dashboard-Ready Foundation)
+
+Goal:
+- Make global color updates possible from a single source and prepare for future end-user theme dashboard controls.
+
+### Task 10: Replace Hardcoded Component Colors With Central Tokens
+
+**Files:**
+- Modify: `/home/amar/dev/FLUID/packages/fluid-react/src/styles/tailwind/index.css`
+- Modify: `/home/amar/dev/FLUID/apps/docs/src/DocsApp.tsx`
+- Modify component wrappers in `/home/amar/dev/FLUID/packages/fluid-react/src/styled/*` as needed for component-specific variant/themed class hooks
+- Test: `/home/amar/dev/FLUID/tests/unit/*`
+- Test: `/home/amar/dev/FLUID/tests/e2e/*`
+
+- [x] **Step 1: Introduce centralized CSS variables (`:root`)**
+- [x] **Step 2: Replace hardcoded color literals in component classes with token variables**
+- [x] **Step 3: Standardize docs route examples so each component shows meaningful `default` / `variants` / `theming` visual differences**
+- [ ] **Step 4: Add runtime token override contract (e.g., data-theme / inline style variable injection API)**
+- [ ] **Step 5: Add persisted theme profile schema for future dashboard integration**
+- [ ] **Step 6: Commit**
+
 ## Final Verification Gate
 
 - [ ] Run full local gate:

@@ -26,6 +26,7 @@ Note:
 
 Latest important commits on `feature/fluid-v1-implementation`:
 
+- `f437dd9` feat: standardize component demos and styling across docs catalog
 - `3aee4e2` feat: add tier-b and tier-c components with maturity metadata
 - `6309e67` docs: add academy tutorial for package usage in sample app
 - `b17bc69` docs: expand button deep dive with guided learning notes
