@@ -54,14 +54,14 @@ const academyRoutes = [
     markdown: structureMapMarkdown
   },
   {
-    name: "Mobile Readiness Backlog",
-    href: "/academy/mobile-readiness",
-    markdown: mobileReadinessMarkdown
-  },
-  {
     name: "Backlog Index",
     href: "/academy/backlogs",
     markdown: backlogIndexMarkdown
+  },
+  {
+    name: "Mobile Readiness Backlog",
+    href: "/academy/mobile-readiness",
+    markdown: mobileReadinessMarkdown
   }
 ];
 
