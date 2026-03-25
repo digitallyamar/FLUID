@@ -11,7 +11,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@fluid-ui/react": path.resolve(__dirname, "../../packages/fluid-react/dist")
+      "@fluid-ui/react": path.resolve(__dirname, "../../packages/fluid-react/src")
     }
   }
 });

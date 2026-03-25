@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "id": "default",
+      "label": "Default Sky",
+      "description": "Current FLUID docs palette.",
+      "tokens": {
+        "color": {
+          "primary": "#0ea5e9",
+          "surface": "#ffffff",
+          "text": "#0f172a",
+          "muted": "#334155",
+          "theme": "#f59e0b"
+        },
+        "spacing": {
+          "md": "16px"
+        },
+        "radius": {
+          "md": "8px"
+        },
+        "typography": {
+          "body": "16px/1.5"
+        },
+        "shadow": {
+          "sm": "0 1px 2px rgba(15,23,42,0.15)"
+        },
+        "motion": {
+          "fast": "120ms"
+        }
+      }
+    },
+    {
+      "id": "forest",
+      "label": "Forest",
+      "description": "Green-led palette for calmer contrast.",
+      "tokens": {
+        "color": {
+          "primary": "#16a34a",
+          "surface": "#f8fff7",
+          "text": "#052e16",
+          "muted": "#166534",
+          "theme": "#84cc16"
+        },
+        "spacing": {
+          "md": "16px"
+        },
+        "radius": {
+          "md": "8px"
+        },
+        "typography": {
+          "body": "16px/1.5"
+        },
+        "shadow": {
+          "sm": "0 1px 2px rgba(6,95,70,0.18)"
+        },
+        "motion": {
+          "fast": "120ms"
+        }
+      }
+    },
+    {
+      "id": "sunset",
+      "label": "Sunset",
+      "description": "Warm orange/red palette for high energy visuals.",
+      "tokens": {
+        "color": {
+          "primary": "#ea580c",
+          "surface": "#fffaf5",
+          "text": "#431407",
+          "muted": "#9a3412",
+          "theme": "#dc2626"
+        },
+        "spacing": {
+          "md": "16px"
+        },
+        "radius": {
+          "md": "8px"
+        },
+        "typography": {
+          "body": "16px/1.5"
+        },
+        "shadow": {
+          "sm": "0 1px 2px rgba(154,52,18,0.2)"
+        },
+        "motion": {
+          "fast": "120ms"
+        }
+      }
+    }
+  ]
+}

@@ -26,7 +26,14 @@ import {
   Toast,
   Tooltip
 } from "@fluid-ui/react";
+import {
+  applyThemeVariables,
+  clearThemeVariables,
+  createTheme,
+  themeContractToVariables
+} from "@fluid-ui/react/tokens";
 import maturityMap from "../content/maturity.json";
+import themeProfilesData from "../content/theme-profiles.json";
 import firstPrinciplesMarkdown from "../../../docs/academy/first-principles-web-fundamentals.md?raw";
 import sessionHandoffMarkdown from "../../../docs/academy/session-handoff-guide.md?raw";
 import questionBankMarkdown from "../../../docs/academy/first-principles-question-bank.md?raw";
@@ -35,6 +42,26 @@ import mobileReadinessMarkdown from "../../../docs/academy/mobile-readiness-back
 import backlogIndexMarkdown from "../../../docs/academy/backlog-index.md?raw";
 import buttonDeepDiveMarkdown from "../../../docs/academy/button-component-deep-dive.md?raw";
 import packageUsageTutorialMarkdown from "../../../docs/academy/fluid-package-usage-tutorial.md?raw";
+
+const THEME_STORAGE_KEY = "fluid-docs-theme-id";
+
+type ThemeProfile = {
+  id: string;
+  label: string;
+  description: string;
+  tokens: Parameters<typeof createTheme>[0];
+};
+
+const themeProfiles = themeProfilesData.profiles as ThemeProfile[];
+type EditableThemeColorKey = "primary" | "surface" | "text" | "muted" | "theme";
+
+const editableThemeColorFields: Array<{ key: EditableThemeColorKey; label: string; ariaLabel: string }> = [
+  { key: "primary", label: "Primary", ariaLabel: "Primary color token" },
+  { key: "surface", label: "Surface", ariaLabel: "Surface color token" },
+  { key: "text", label: "Text", ariaLabel: "Text color token" },
+  { key: "muted", label: "Muted", ariaLabel: "Muted color token" },
+  { key: "theme", label: "Theme accent", ariaLabel: "Theme accent token" }
+];
 
 const componentRoutes = [
   { name: "Button", href: "/components/button" },
@@ -126,10 +153,19 @@ type ComponentSections = {
   accessibility: React.ReactNode;
 };
 
-function ComponentPage({ name, sections }: { name: string; sections: ComponentSections }) {
+function ComponentPage({
+  name,
+  sections,
+  themeDashboard
+}: {
+  name: string;
+  sections: ComponentSections;
+  themeDashboard: React.ReactNode;
+}) {
   return (
     <main>
       <h1>{name}</h1>
+      {themeDashboard}
       <SectionFrame title="Default">{sections.default}</SectionFrame>
       <SectionFrame title="Variants">{sections.variants}</SectionFrame>
       <SectionFrame title="Disabled">{sections.disabled}</SectionFrame>
@@ -144,6 +180,80 @@ export function DocsApp() {
   const [buttonClicks, setButtonClicks] = React.useState(0);
   const [buttonVariantClicks, setButtonVariantClicks] = React.useState(0);
   const [buttonThemeClicks, setButtonThemeClicks] = React.useState(0);
+  const [activeThemeId, setActiveThemeId] = React.useState(() => {
+    if (typeof window === "undefined") {
+      return themeProfiles[0]?.id ?? "default";
+    }
+    return window.localStorage.getItem(THEME_STORAGE_KEY) ?? themeProfiles[0]?.id ?? "default";
+  });
+  const [themeColorOverrides, setThemeColorOverrides] = React.useState<
+    Partial<Record<EditableThemeColorKey, string>>
+  >({});
+  const appliedThemeVariablesRef = React.useRef<string[]>([]);
+  const activeThemeProfile =
+    themeProfiles.find((profile) => profile.id === activeThemeId) ?? themeProfiles[0];
+
+  React.useEffect(() => {
+    if (!activeThemeProfile) {
+      return;
+    }
+
+    clearThemeVariables(appliedThemeVariablesRef.current);
+    const resolvedThemeTokens = {
+      ...activeThemeProfile.tokens,
+      color: {
+        ...activeThemeProfile.tokens.color,
+        ...themeColorOverrides
+      }
+    };
+    const variables = themeContractToVariables(createTheme(resolvedThemeTokens));
+    applyThemeVariables(variables);
+    appliedThemeVariablesRef.current = Object.keys(variables);
+    document.documentElement.setAttribute("data-fluid-theme", activeThemeProfile.id);
+    window.localStorage.setItem(THEME_STORAGE_KEY, activeThemeProfile.id);
+  }, [activeThemeProfile, themeColorOverrides]);
+
+  const themeDashboard = (
+    <section style={{ marginBottom: 16 }}>
+      <label htmlFor="theme-profile-select" style={{ display: "block", fontWeight: 600 }}>
+        Docs Theme
+      </label>
+      <select
+        id="theme-profile-select"
+        aria-label="Theme profile"
+        value={activeThemeId}
+        onChange={(event) => {
+          setActiveThemeId(event.target.value);
+          setThemeColorOverrides({});
+        }}
+      >
+        {themeProfiles.map((profile) => (
+          <option key={profile.id} value={profile.id}>
+            {profile.label}
+          </option>
+        ))}
+      </select>
+      <p style={{ marginTop: 8 }}>{activeThemeProfile?.description}</p>
+      <div style={{ display: "grid", gap: 8, maxWidth: 320 }}>
+        {editableThemeColorFields.map((field) => (
+          <label key={field.key} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ width: 108 }}>{field.label}</span>
+            <input
+              aria-label={field.ariaLabel}
+              type="color"
+              value={themeColorOverrides[field.key] ?? activeThemeProfile?.tokens.color[field.key] ?? "#000000"}
+              onChange={(event) =>
+                setThemeColorOverrides((previous) => ({ ...previous, [field.key]: event.target.value }))
+              }
+            />
+          </label>
+        ))}
+      </div>
+      <button type="button" onClick={() => setThemeColorOverrides({})} style={{ marginTop: 8 }}>
+        Reset Theme Colors
+      </button>
+    </section>
+  );
 
   switch (route) {
     case "/":
@@ -154,6 +264,9 @@ export function DocsApp() {
           <ul>
             <li>
               <a href="/components">Browse Components</a>
+            </li>
+            <li>
+              <a href="/theme-dashboard">Open Theme Dashboard</a>
             </li>
             <li>
               <a href="/academy">Browse Academy Notes</a>
@@ -268,6 +381,7 @@ export function DocsApp() {
       return (
         <main>
           <h1>Components</h1>
+          {themeDashboard}
           <ul>
             {componentRoutes.map((item) => (
               <li key={item.href}>
@@ -277,9 +391,26 @@ export function DocsApp() {
           </ul>
         </main>
       );
+    case "/theme-dashboard":
+    case "/theme-dashboard/":
+      return (
+        <main>
+          <h1>Theme Dashboard</h1>
+          <p>Use profiles or color token overrides to preview themed components.</p>
+          {themeDashboard}
+          <SectionFrame title="Live Preview">
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <Button className="fluid-btn-themed">Themed Button</Button>
+              <Input aria-label="theme-dashboard-input" defaultValue="Themed Input" className="fluid-input-themed" />
+              <Badge className="fluid-badge-themed">Themed Badge</Badge>
+            </div>
+          </SectionFrame>
+        </main>
+      );
     case "/components/button":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name="Button"
           sections={{
             default: (
@@ -327,6 +458,7 @@ export function DocsApp() {
     case "/components/icon-button":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name="IconButton"
           sections={{
             default: <IconButton aria-label="settings">*</IconButton>,
@@ -344,6 +476,7 @@ export function DocsApp() {
     case "/components/input":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name="Input"
           sections={{
             default: <Input aria-label="name" defaultValue="FLUID" />,
@@ -357,6 +490,7 @@ export function DocsApp() {
     case "/components/textarea":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name="Textarea"
           sections={{
             default: <Textarea aria-label="description" defaultValue="Text" />,
@@ -370,6 +504,7 @@ export function DocsApp() {
     case "/components/select":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name="Select"
           sections={{
             default: (
@@ -403,6 +538,7 @@ export function DocsApp() {
     case "/components/checkbox":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name="Checkbox"
           sections={{
             default: <Checkbox aria-label="accept" />,
@@ -416,6 +552,7 @@ export function DocsApp() {
     case "/components/radio-group":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name="RadioGroup"
           sections={{
             default: (
@@ -468,6 +605,7 @@ export function DocsApp() {
     case "/components/switch":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name="Switch"
           sections={{
             default: <Switch aria-label="dark-mode" />,
@@ -481,6 +619,7 @@ export function DocsApp() {
     case "/components/card":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name="Card"
           sections={{
             default: <Card className="fluid-card">Card Body</Card>,
@@ -494,6 +633,7 @@ export function DocsApp() {
     case "/components/modal":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name="Modal"
           sections={{
             default: (
@@ -523,6 +663,7 @@ export function DocsApp() {
     case "/components/tabs":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name={`Tabs (Tier ${maturityMap.Tabs})`}
           sections={{
             default: (
@@ -571,6 +712,7 @@ export function DocsApp() {
     case "/components/accordion":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name={`Accordion (Tier ${maturityMap.Accordion})`}
           sections={{
             default: <Accordion items={[{ id: "a1", title: "Section A", content: "A body" }]} />,
@@ -602,6 +744,7 @@ export function DocsApp() {
     case "/components/tooltip":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name={`Tooltip (Tier ${maturityMap.Tooltip})`}
           sections={{
             default: <Tooltip content="Helpful info">Hover target</Tooltip>,
@@ -615,6 +758,7 @@ export function DocsApp() {
     case "/components/popover":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name={`Popover (Tier ${maturityMap.Popover})`}
           sections={{
             default: <Popover trigger={<Button>Open</Button>} content="Popover content" />,
@@ -628,6 +772,7 @@ export function DocsApp() {
     case "/components/dropdown-menu":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name={`DropdownMenu (Tier ${maturityMap.DropdownMenu})`}
           sections={{
             default: (
@@ -664,6 +809,7 @@ export function DocsApp() {
     case "/components/toast":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name={`Toast (Tier ${maturityMap.Toast})`}
           sections={{
             default: <Toast>Saved successfully</Toast>,
@@ -677,6 +823,7 @@ export function DocsApp() {
     case "/components/badge":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name={`Badge (Tier ${maturityMap.Badge})`}
           sections={{
             default: <Badge>New</Badge>,
@@ -690,6 +837,7 @@ export function DocsApp() {
     case "/components/avatar":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name={`Avatar (Tier ${maturityMap.Avatar})`}
           sections={{
             default: <Avatar alt="Demo avatar" src="https://placehold.co/48x48/png" />,
@@ -703,6 +851,7 @@ export function DocsApp() {
     case "/components/pagination":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name={`Pagination (Tier ${maturityMap.Pagination})`}
           sections={{
             default: <Pagination page={2} totalPages={5} />,
@@ -716,6 +865,7 @@ export function DocsApp() {
     case "/components/breadcrumb":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name={`Breadcrumb (Tier ${maturityMap.Breadcrumb})`}
           sections={{
             default: <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Components" }, { label: "Button" }]} />,
@@ -734,6 +884,7 @@ export function DocsApp() {
     case "/components/data-table":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name={`DataTable (Tier ${maturityMap.DataTable})`}
           sections={{
             default: (
@@ -814,6 +965,7 @@ export function DocsApp() {
     case "/components/date-picker":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name={`DatePicker (Tier ${maturityMap.DatePicker})`}
           sections={{
             default: (
@@ -841,6 +993,7 @@ export function DocsApp() {
     case "/components/command-palette":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name={`CommandPalette (Tier ${maturityMap.CommandPalette})`}
           sections={{
             default: (
@@ -868,6 +1021,7 @@ export function DocsApp() {
     case "/components/combobox":
       return (
         <ComponentPage
+          themeDashboard={themeDashboard}
           name={`Combobox (Tier ${maturityMap.Combobox})`}
           sections={{
             default: (

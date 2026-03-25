@@ -9,6 +9,9 @@ describe("entrypoints", () => {
     expect(root).toHaveProperty("Button");
     expect(headless).toHaveProperty("useButton");
     expect(tokens).toHaveProperty("createTheme");
+    expect(tokens).toHaveProperty("themeContractToVariables");
+    expect(tokens).toHaveProperty("applyThemeVariables");
+    expect(tokens).toHaveProperty("clearThemeVariables");
   });
 
   it("exposes tailwind preset contract", () => {
