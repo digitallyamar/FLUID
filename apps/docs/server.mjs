@@ -9,16 +9,17 @@ const port = Number(
     "3000"
 );
 
-const page = `<!doctype html>
+function renderPage(title) {
+  return `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FLUID Docs</title>
+    <title>FLUID Docs - ${title}</title>
   </head>
   <body>
     <main>
-      <h1>Button</h1>
+      <h1>${title}</h1>
       <section><h2>Default</h2></section>
       <section><h2>Variants</h2></section>
       <section><h2>Disabled</h2></section>
@@ -27,6 +28,21 @@ const page = `<!doctype html>
     </main>
   </body>
 </html>`;
+}
+
+const routeTitle = {
+  "/": "Button",
+  "/components/button": "Button",
+  "/components/icon-button": "IconButton",
+  "/components/input": "Input",
+  "/components/textarea": "Textarea",
+  "/components/select": "Select",
+  "/components/checkbox": "Checkbox",
+  "/components/radio-group": "RadioGroup",
+  "/components/switch": "Switch",
+  "/components/card": "Card",
+  "/components/modal": "Modal"
+};
 
 const server = createServer((req, res) => {
   if (!req.url) {
@@ -35,10 +51,11 @@ const server = createServer((req, res) => {
     return;
   }
 
-  if (req.url === "/" || req.url === "/components/button") {
+  const title = routeTitle[req.url];
+  if (title) {
     res.statusCode = 200;
     res.setHeader("Content-Type", "text/html; charset=utf-8");
-    res.end(page);
+    res.end(renderPage(title));
     return;
   }
 
