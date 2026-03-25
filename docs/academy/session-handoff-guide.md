@@ -72,6 +72,9 @@ Please read these first before making any change:
 3) docs/academy/first-principles-web-fundamentals.md
 4) docs/academy/session-handoff-guide.md
 
+Project rule (must enforce every session):
+- Any new file under `docs/academy/` MUST be added to the `/academy` route index in `apps/docs/src/DocsApp.tsx`.
+
 Then run:
 git status --short
 git branch --show-current

@@ -15,6 +15,8 @@ import {
 import firstPrinciplesMarkdown from "../../../docs/academy/first-principles-web-fundamentals.md?raw";
 import sessionHandoffMarkdown from "../../../docs/academy/session-handoff-guide.md?raw";
 import questionBankMarkdown from "../../../docs/academy/first-principles-question-bank.md?raw";
+import structureMapMarkdown from "../../../docs/academy/fluid-library-structure-map.md?raw";
+import mobileReadinessMarkdown from "../../../docs/academy/mobile-readiness-backlog.md?raw";
 
 const componentRoutes = [
   { name: "Button", href: "/components/button" },
@@ -44,6 +46,16 @@ const academyRoutes = [
     name: "First-Principles Question Bank",
     href: "/academy/question-bank",
     markdown: questionBankMarkdown
+  },
+  {
+    name: "FLUID Library Structure Map",
+    href: "/academy/structure-map",
+    markdown: structureMapMarkdown
+  },
+  {
+    name: "Mobile Readiness Backlog",
+    href: "/academy/mobile-readiness",
+    markdown: mobileReadinessMarkdown
   }
 ];
 
@@ -140,6 +152,26 @@ export function DocsApp() {
           <article
             className="academy-markdown"
             dangerouslySetInnerHTML={{ __html: marked.parse(questionBankMarkdown) }}
+          />
+        </main>
+      );
+    case "/academy/structure-map":
+      return (
+        <main>
+          <h1>Academy: FLUID Library Structure Map</h1>
+          <article
+            className="academy-markdown"
+            dangerouslySetInnerHTML={{ __html: marked.parse(structureMapMarkdown) }}
+          />
+        </main>
+      );
+    case "/academy/mobile-readiness":
+      return (
+        <main>
+          <h1>Academy: Mobile Readiness Backlog</h1>
+          <article
+            className="academy-markdown"
+            dangerouslySetInnerHTML={{ __html: marked.parse(mobileReadinessMarkdown) }}
           />
         </main>
       );
