@@ -12,6 +12,19 @@ import {
   Textarea
 } from "@fluid-ui/react";
 
+const componentRoutes = [
+  { name: "Button", href: "/components/button" },
+  { name: "IconButton", href: "/components/icon-button" },
+  { name: "Input", href: "/components/input" },
+  { name: "Textarea", href: "/components/textarea" },
+  { name: "Select", href: "/components/select" },
+  { name: "Checkbox", href: "/components/checkbox" },
+  { name: "RadioGroup", href: "/components/radio-group" },
+  { name: "Switch", href: "/components/switch" },
+  { name: "Card", href: "/components/card" },
+  { name: "Modal", href: "/components/modal" }
+];
+
 function SectionFrame({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section style={{ marginBottom: 16 }}>
@@ -47,6 +60,26 @@ export function DocsApp() {
 
   switch (route) {
     case "/":
+      return (
+        <main>
+          <h1>FLUID Docs</h1>
+          <p>Explore available UI components.</p>
+          <a href="/components">Browse Components</a>
+        </main>
+      );
+    case "/components":
+      return (
+        <main>
+          <h1>Components</h1>
+          <ul>
+            {componentRoutes.map((item) => (
+              <li key={item.href}>
+                <a href={item.href}>{item.name}</a>
+              </li>
+            ))}
+          </ul>
+        </main>
+      );
     case "/components/button":
       return <ComponentPage name="Button" control={<Button>Default</Button>} />;
     case "/components/icon-button":

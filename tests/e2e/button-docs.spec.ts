@@ -7,5 +7,10 @@ test("button docs page has required sections", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 2, name: "Disabled" })).toBeVisible();
   await expect(page.getByRole("heading", { level: 2, name: "Theming" })).toBeVisible();
   await expect(page.getByRole("heading", { level: 2, name: "Accessibility" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Default" }).first()).toBeVisible();
+  const button = page.getByRole("button", { name: "Default" }).first();
+  await expect(button).toBeVisible();
+  const borderRadius = await button.evaluate(
+    (el) => window.getComputedStyle(el as HTMLElement).borderRadius
+  );
+  expect(borderRadius).toBe("8px");
 });
