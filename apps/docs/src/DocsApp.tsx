@@ -17,6 +17,7 @@ import sessionHandoffMarkdown from "../../../docs/academy/session-handoff-guide.
 import questionBankMarkdown from "../../../docs/academy/first-principles-question-bank.md?raw";
 import structureMapMarkdown from "../../../docs/academy/fluid-library-structure-map.md?raw";
 import mobileReadinessMarkdown from "../../../docs/academy/mobile-readiness-backlog.md?raw";
+import backlogIndexMarkdown from "../../../docs/academy/backlog-index.md?raw";
 
 const componentRoutes = [
   { name: "Button", href: "/components/button" },
@@ -56,8 +57,16 @@ const academyRoutes = [
     name: "Mobile Readiness Backlog",
     href: "/academy/mobile-readiness",
     markdown: mobileReadinessMarkdown
+  },
+  {
+    name: "Backlog Index",
+    href: "/academy/backlogs",
+    markdown: backlogIndexMarkdown
   }
 ];
+
+const academyCoreRoutes = academyRoutes.filter((item) => item.href !== "/academy/mobile-readiness" && item.href !== "/academy/backlogs");
+const academyBacklogRoutes = academyRoutes.filter((item) => item.href === "/academy/mobile-readiness" || item.href === "/academy/backlogs");
 
 function SectionFrame({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -116,8 +125,17 @@ export function DocsApp() {
       return (
         <main>
           <h1>Academy Notes</h1>
+          <h2>Core Notes</h2>
           <ul>
-            {academyRoutes.map((item) => (
+            {academyCoreRoutes.map((item) => (
+              <li key={item.href}>
+                <a href={item.href}>{item.name}</a>
+              </li>
+            ))}
+          </ul>
+          <h2>Backlogs</h2>
+          <ul>
+            {academyBacklogRoutes.map((item) => (
               <li key={item.href}>
                 <a href={item.href}>{item.name}</a>
               </li>
@@ -172,6 +190,16 @@ export function DocsApp() {
           <article
             className="academy-markdown"
             dangerouslySetInnerHTML={{ __html: marked.parse(mobileReadinessMarkdown) }}
+          />
+        </main>
+      );
+    case "/academy/backlogs":
+      return (
+        <main>
+          <h1>Academy: Backlog Index</h1>
+          <article
+            className="academy-markdown"
+            dangerouslySetInnerHTML={{ __html: marked.parse(backlogIndexMarkdown) }}
           />
         </main>
       );

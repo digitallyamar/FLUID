@@ -74,6 +74,7 @@ Please read these first before making any change:
 
 Project rule (must enforce every session):
 - Any new file under `docs/academy/` MUST be added to the `/academy` route index in `apps/docs/src/DocsApp.tsx`.
+- Any backlog-type academy note MUST also be listed in `docs/academy/backlog-index.md` and surfaced under the Academy Backlogs section (`/academy`).
 
 Then run:
 git status --short
