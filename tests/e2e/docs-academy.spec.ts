@@ -7,8 +7,15 @@ test("academy learning doc is reachable from home and renders markdown", async (
   await expect(page).toHaveURL("http://localhost:3000/academy");
   await expect(page.getByRole("link", { name: "First Principles Web Fundamentals" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Session Handoff Guide" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "First-Principles Question Bank" })).toBeVisible();
   await page.getByRole("link", { name: "First Principles Web Fundamentals" }).click();
   await expect(page).toHaveURL("http://localhost:3000/academy/first-principles");
   await expect(page.getByRole("heading", { name: "Academy: First Principles" })).toBeVisible();
   await expect(page.getByText("The Smallest Mental Model of the Web")).toBeVisible();
+
+  await page.goto("http://localhost:3000/academy");
+  await page.getByRole("link", { name: "First-Principles Question Bank" }).click();
+  await expect(page).toHaveURL("http://localhost:3000/academy/question-bank");
+  await expect(page.getByRole("heading", { name: "Academy: First-Principles Question Bank" })).toBeVisible();
+  await expect(page.getByText("Core First-Principles Questions")).toBeVisible();
 });

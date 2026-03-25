@@ -14,6 +14,7 @@ import {
 } from "@fluid-ui/react";
 import firstPrinciplesMarkdown from "../../../docs/academy/first-principles-web-fundamentals.md?raw";
 import sessionHandoffMarkdown from "../../../docs/academy/session-handoff-guide.md?raw";
+import questionBankMarkdown from "../../../docs/academy/first-principles-question-bank.md?raw";
 
 const componentRoutes = [
   { name: "Button", href: "/components/button" },
@@ -38,6 +39,11 @@ const academyRoutes = [
     name: "Session Handoff Guide",
     href: "/academy/session-handoff",
     markdown: sessionHandoffMarkdown
+  },
+  {
+    name: "First-Principles Question Bank",
+    href: "/academy/question-bank",
+    markdown: questionBankMarkdown
   }
 ];
 
@@ -124,6 +130,16 @@ export function DocsApp() {
           <article
             className="academy-markdown"
             dangerouslySetInnerHTML={{ __html: marked.parse(sessionHandoffMarkdown) }}
+          />
+        </main>
+      );
+    case "/academy/question-bank":
+      return (
+        <main>
+          <h1>Academy: First-Principles Question Bank</h1>
+          <article
+            className="academy-markdown"
+            dangerouslySetInnerHTML={{ __html: marked.parse(questionBankMarkdown) }}
           />
         </main>
       );
