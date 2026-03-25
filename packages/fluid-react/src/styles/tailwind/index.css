@@ -4,6 +4,17 @@
   padding: 0.5rem 0.75rem;
   background: #ffffff;
   color: #0f172a;
+  box-shadow: 0 2px 0 rgba(15, 23, 42, 0.15);
+  transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+}
+
+.fluid-btn:not(:disabled):active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.1);
+}
+
+.fluid-btn:not(:disabled):hover {
+  filter: brightness(0.98);
 }
 
 .fluid-btn-variant {
@@ -21,6 +32,16 @@
 .fluid-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none;
+  filter: none;
+  box-shadow: none;
+}
+
+.fluid-btn:disabled:active,
+.fluid-btn:disabled:hover {
+  transform: none;
+  filter: none;
+  box-shadow: none;
 }
 
 .fluid-input,
@@ -89,4 +110,20 @@ main {
   margin: 0 auto;
   padding: 1.25rem;
   font-family: Arial, sans-serif;
+}
+
+.academy-markdown {
+  line-height: 1.6;
+}
+
+.academy-markdown h1,
+.academy-markdown h2,
+.academy-markdown h3 {
+  margin-top: 1.2rem;
+}
+
+.academy-markdown code {
+  background: #f1f5f9;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
 }

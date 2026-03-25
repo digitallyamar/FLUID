@@ -1,4 +1,5 @@
 import React from "react";
+import { marked } from "marked";
 import {
   Button,
   Card,
@@ -11,6 +12,7 @@ import {
   Switch,
   Textarea
 } from "@fluid-ui/react";
+import firstPrinciplesMarkdown from "../../../docs/academy/first-principles-web-fundamentals.md?raw";
 
 const componentRoutes = [
   { name: "Button", href: "/components/button" },
@@ -67,7 +69,24 @@ export function DocsApp() {
         <main>
           <h1>FLUID Docs</h1>
           <p>Explore available UI components.</p>
-          <a href="/components">Browse Components</a>
+          <ul>
+            <li>
+              <a href="/components">Browse Components</a>
+            </li>
+            <li>
+              <a href="/academy/first-principles">Read Learning Doc: First Principles</a>
+            </li>
+          </ul>
+        </main>
+      );
+    case "/academy/first-principles":
+      return (
+        <main>
+          <h1>Academy: First Principles</h1>
+          <article
+            className="academy-markdown"
+            dangerouslySetInnerHTML={{ __html: marked.parse(firstPrinciplesMarkdown) }}
+          />
         </main>
       );
     case "/components":
