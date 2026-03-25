@@ -21,6 +21,7 @@ Use this guide to start a new chat/session and continue FLUID development withou
 
 Latest important commits on `feature/fluid-v1-implementation`:
 
+- `71e4c3a` feat: add academy index route with note links
 - `b410d45` docs: add first-principles academy page in docs app
 - `a101d75` fix: differentiate modal docs states
 - `99ff936` fix: improve button interaction feedback and card section differentiation
@@ -28,6 +29,9 @@ Latest important commits on `feature/fluid-v1-implementation`:
 - `3a6aaf4` feat: add docs catalog and apply FLUID component styles
 - `1037341` feat: render real FLUID components in docs app
 - `a779a05` feat: deliver remaining tier-a component set
+
+Remote status:
+- `feature/fluid-v1-implementation` has been pushed to `origin`.
 
 ## Uncommitted Items At Handoff
 
@@ -93,15 +97,24 @@ Useful URLs:
 
 - `http://localhost:3000/`
 - `http://localhost:3000/components`
+- `http://localhost:3000/academy`
 - `http://localhost:3000/academy/first-principles`
+- `http://localhost:3000/academy/session-handoff`
 
 ## Git Safety Notes
 
 - Work is happening in a git worktree branch, not `main`.
 - `.worktrees/` is ignored at parent workspace level, but files inside this worktree are tracked normally in this branch.
-- To persist remotely, push this branch:
+- This branch is already pushed:
 
 ```bash
 cd /home/amar/dev/FLUID/.worktrees/fluid-v1-implementation
 git push -u origin feature/fluid-v1-implementation
+```
+
+To push newer commits made after this checkpoint:
+
+```bash
+cd /home/amar/dev/FLUID/.worktrees/fluid-v1-implementation
+git push
 ```
