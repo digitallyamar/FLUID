@@ -15,6 +15,7 @@ This V1 prioritizes:
 - Ship 20-30 components in clearly labeled maturity tiers.
 - Support both Tailwind-native usage and prebuilt CSS usage.
 - Build a repeatable path for domain-specific visual uniqueness without per-client forks.
+- Provide SEO-enabling component primitives (semantic structure, accessibility-first markup, SSR-safe rendering hooks) while keeping page SEO decisions in app/template layers.
 - Embed a "learn while building" workflow so implementation also teaches frontend and JS server concepts.
 
 ## Non-Goals (V1)
@@ -22,6 +23,7 @@ This V1 prioritizes:
 - Building a full autonomous AI component generation engine.
 - Supporting non-React frameworks as first-class runtime targets.
 - Immediate multi-package monorepo decomposition.
+- Defining page-level SEO strategy (metadata, canonical policy, sitemap/robots, content/keyword strategy) inside the core component package.
 
 ## Product Scope
 
@@ -64,6 +66,10 @@ FLUID avoids per-client component forks by keeping behavior and accessibility lo
 - tokens,
 - scoped style overrides,
 - and later AI-generated style presets.
+
+FLUID also follows a strict SEO responsibility split:
+- library layer: SEO-enabling building blocks (semantic and accessible markup, predictable SSR behavior, composable structured-data helpers when generic),
+- application/template layer: SEO-deciding configuration (title/description/canonical, OG/Twitter tags, sitemap, robots, internal linking, content strategy).
 
 ## Repository Architecture (V1)
 

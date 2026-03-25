@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build and release FLUID V1 P0 as a production-usable React component package (`@fluid-ui/react`) with tiered components, docs, tests, and dual styling consumption (Tailwind + prebuilt CSS).
+**Goal:** Build and release FLUID V1 P0 as a production-usable React component package (`@fluid-ui/react`) with tiered components, docs, tests, dual styling consumption (Tailwind + prebuilt CSS), and SEO-enabling primitives.
 
 **Architecture:** Use a single-package repo with strict internal boundaries: `headless` behavior, `styled` presentation, `tokens` contract, and build artifacts (`fluid.css`, tailwind preset). Ship a thin vertical slice first, then expand Tier A/B/C with explicit quality gates and release automation.
 
@@ -25,6 +25,7 @@ Out of scope for this plan:
 - AI style preset generation engine
 - Publicly hosted lab product
 - Non-React runtime support
+- Page-level SEO policy ownership in the core UI package (title/meta/canonical/OG rules, sitemap/robots policy, content strategy)
 
 ## File Structure Map
 
@@ -771,6 +772,11 @@ CI docs smoke command details:
 - `npm run -w apps/docs build`
 - `npm run -w apps/docs start -- --port 3000`
 - run Playwright after docs server is reachable
+- include component-level semantic checks on representative docs routes (landmarks/headings/basic metadata hooks present)
+
+SEO responsibility split for Task 8:
+- library (`@fluid-ui/react`) must remain SEO-enabling: semantic and accessible component output, SSR-safe composition points, optional generic metadata/schema helpers,
+- app/template layer owns SEO-deciding policy: page titles/descriptions/canonicals, OG/Twitter values, sitemap/robots, linking/content strategy.
 
 `apps/docs/package.json` must define:
 - name: `@fluid-ui/docs`
