@@ -7,5 +7,6 @@ export type DropdownMenuItem = {
 
 export type DropdownMenuProps = HTMLAttributes<HTMLDivElement> & {
   items: DropdownMenuItem[];
+  triggerLabel?: string;
   onSelect?: (value: string) => void;
 };

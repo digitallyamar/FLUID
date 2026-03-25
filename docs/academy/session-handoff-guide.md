@@ -17,6 +17,7 @@ Use this guide to start a new chat/session and continue FLUID development withou
 - Implementation plan: `/home/amar/dev/FLUID/.worktrees/fluid-v1-implementation/docs/superpowers/plans/2026-03-25-fluid-v1-implementation.md`
 - Learning doc: `/home/amar/dev/FLUID/.worktrees/fluid-v1-implementation/docs/academy/first-principles-web-fundamentals.md`
 - Button deep dive doc: `/home/amar/dev/FLUID/.worktrees/fluid-v1-implementation/docs/academy/button-component-deep-dive.md`
+- Package usage tutorial: `/home/amar/dev/FLUID/.worktrees/fluid-v1-implementation/docs/academy/fluid-package-usage-tutorial.md`
 
 Note:
 - `IDEA.md` and the implementation plan are now committed and pushed to origin for long-term reference.
@@ -25,25 +26,21 @@ Note:
 
 Latest important commits on `feature/fluid-v1-implementation`:
 
-- `71e4c3a` feat: add academy index route with note links
-- `b410d45` docs: add first-principles academy page in docs app
-- `a101d75` fix: differentiate modal docs states
-- `99ff936` fix: improve button interaction feedback and card section differentiation
-- `97adc0e` feat: add interactive docs sections and component catalog navigation
-- `3a6aaf4` feat: add docs catalog and apply FLUID component styles
-- `1037341` feat: render real FLUID components in docs app
-- `a779a05` feat: deliver remaining tier-a component set
+- `3aee4e2` feat: add tier-b and tier-c components with maturity metadata
+- `6309e67` docs: add academy tutorial for package usage in sample app
+- `b17bc69` docs: expand button deep dive with guided learning notes
+- `e292757` docs: add button deep dive and refresh handoff prompt
+- `25bf0d6` docs: add academy structure map and mobile backlog notes
+- `8b85fd5` docs: pin backlog index as first academy backlog entry
+- `89c4baf` docs: add academy backlog subsection and index
+- `f3f2a02` docs: enforce academy index coverage for all notes
 
 Remote status:
 - `feature/fluid-v1-implementation` has been pushed to `origin`.
 
 ## Uncommitted Items At Handoff
 
-At the time this guide was written, this branch also had local uncommitted files:
-
-- Modified: `docs/superpowers/specs/2026-03-25-fluid-v1-design.md`
-- Untracked: `IDEA.md`
-- Untracked dir: `docs/superpowers/plans/`
+Uncommitted items are session-dependent. Do not trust old snapshots in this guide.
 
 Before continuing, always run:
 
@@ -104,7 +101,7 @@ cd /home/amar/dev/FLUID/.worktrees/fluid-v1-implementation
 npm install
 npm run -w @fluid-ui/react build
 npm run test:unit
-npm run test:e2e -- tests/e2e/button-docs.spec.ts tests/e2e/docs-catalog.spec.ts tests/e2e/tier-a-a11y.spec.ts tests/e2e/docs-academy.spec.ts
+npm run test:e2e -- tests/e2e/button-docs.spec.ts tests/e2e/docs-catalog.spec.ts tests/e2e/tier-a-a11y.spec.ts tests/e2e/tier-b-a11y.spec.ts tests/e2e/docs-academy.spec.ts
 npm run -w @fluid-ui/docs start -- --port 3000
 ```
 

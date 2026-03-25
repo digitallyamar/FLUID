@@ -406,9 +406,9 @@ export function DocsApp() {
           name="Checkbox"
           sections={{
             default: <Checkbox aria-label="accept" />,
-            variants: <Checkbox aria-label="accept-variant" className="fluid-btn-variant" />,
+            variants: <Checkbox aria-label="accept-variant" className="fluid-checkbox-variant" />,
             disabled: <Checkbox aria-label="accept-disabled" disabled />,
-            theming: <Checkbox aria-label="accept-themed" className="fluid-btn-themed" />,
+            theming: <Checkbox aria-label="accept-themed" className="fluid-checkbox-themed" />,
             accessibility: <p>Checkbox has native checked state and keyboard toggling.</p>
           }}
         />
@@ -431,6 +431,7 @@ export function DocsApp() {
             variants: (
               <RadioGroup
                 aria-label="plan-variant"
+                className="fluid-radio-group-variant"
                 name="plan-variant"
                 options={[
                   { label: "Standard", value: "standard" },
@@ -438,8 +439,28 @@ export function DocsApp() {
                 ]}
               />
             ),
-            disabled: <p>Disabled variant pending for grouped controls.</p>,
-            theming: <p>Theming for grouped controls is token-driven and will evolve.</p>,
+            disabled: (
+              <RadioGroup
+                aria-label="plan-disabled"
+                className="fluid-radio-group-disabled"
+                name="plan-disabled"
+                options={[
+                  { label: "Locked Basic", value: "basic" },
+                  { label: "Locked Pro", value: "pro" }
+                ]}
+              />
+            ),
+            theming: (
+              <RadioGroup
+                aria-label="plan-themed"
+                className="fluid-radio-group-themed"
+                name="plan-themed"
+                options={[
+                  { label: "Theme Basic", value: "basic" },
+                  { label: "Theme Pro", value: "pro" }
+                ]}
+              />
+            ),
             accessibility: <p>RadioGroup exposes grouped radio semantics through fieldset + inputs.</p>
           }}
         />
@@ -450,9 +471,9 @@ export function DocsApp() {
           name="Switch"
           sections={{
             default: <Switch aria-label="dark-mode" />,
-            variants: <Switch aria-label="dark-mode-variant" className="fluid-btn-variant" />,
+            variants: <Switch aria-label="dark-mode-variant" className="fluid-switch-variant" />,
             disabled: <Switch aria-label="dark-mode-disabled" disabled />,
-            theming: <Switch aria-label="dark-mode-themed" className="fluid-btn-themed" />,
+            theming: <Switch aria-label="dark-mode-themed" className="fluid-switch-themed" />,
             accessibility: <p>Switch uses role=switch with aria-checked updates.</p>
           }}
         />
@@ -515,6 +536,7 @@ export function DocsApp() {
             ),
             variants: (
               <Tabs
+                className="fluid-tabs-variant"
                 defaultValue="overview"
                 items={[
                   { value: "overview", label: "Overview", content: "Overview Panel" },
@@ -522,8 +544,26 @@ export function DocsApp() {
                 ]}
               />
             ),
-            disabled: <p>Disabled tabs variant will be added with richer keyboard guards.</p>,
-            theming: <p>Tabs theming is currently class-driven and will migrate to token-only styling.</p>,
+            disabled: (
+              <Tabs
+                className="fluid-tabs-disabled"
+                defaultValue="locked-a"
+                items={[
+                  { value: "locked-a", label: "Locked A", content: "Disabled preview A" },
+                  { value: "locked-b", label: "Locked B", content: "Disabled preview B" }
+                ]}
+              />
+            ),
+            theming: (
+              <Tabs
+                className="fluid-tabs-themed"
+                defaultValue="theme-a"
+                items={[
+                  { value: "theme-a", label: "Themed A", content: "Themed panel A" },
+                  { value: "theme-b", label: "Themed B", content: "Themed panel B" }
+                ]}
+              />
+            ),
             accessibility: <p>Tabs expose `tablist`, `tab`, and `tabpanel` roles for navigation.</p>
           }}
         />
@@ -536,14 +576,25 @@ export function DocsApp() {
             default: <Accordion items={[{ id: "a1", title: "Section A", content: "A body" }]} />,
             variants: (
               <Accordion
+                className="fluid-accordion-variant"
                 items={[
                   { id: "b1", title: "Section B", content: "B body" },
                   { id: "c1", title: "Section C", content: "C body" }
                 ]}
               />
             ),
-            disabled: <p>Disabled accordion state is planned with per-item lock support.</p>,
-            theming: <p>Accordion visual states will align with token-based spacings and borders.</p>,
+            disabled: (
+              <Accordion
+                className="fluid-accordion-disabled"
+                items={[{ id: "d1", title: "Disabled Section", content: "Read-only accordion preview" }]}
+              />
+            ),
+            theming: (
+              <Accordion
+                className="fluid-accordion-themed"
+                items={[{ id: "t1", title: "Themed Section", content: "Themed accordion content" }]}
+              />
+            ),
             accessibility: <p>Accordion uses button controls with `aria-expanded` state.</p>
           }}
         />
@@ -554,9 +605,9 @@ export function DocsApp() {
           name={`Tooltip (Tier ${maturityMap.Tooltip})`}
           sections={{
             default: <Tooltip content="Helpful info">Hover target</Tooltip>,
-            variants: <Tooltip content="Variant hint">Variant target</Tooltip>,
-            disabled: <p>Disabled tooltip trigger behavior is pending richer trigger-state handling.</p>,
-            theming: <p>Tooltip theming is in-progress for surface and elevation tokens.</p>,
+            variants: <Tooltip className="fluid-tooltip-variant" content="Variant hint">Variant target</Tooltip>,
+            disabled: <Tooltip className="fluid-tooltip-disabled" content="Disabled hint">Disabled preview</Tooltip>,
+            theming: <Tooltip className="fluid-tooltip-themed" content="Themed hint">Themed target</Tooltip>,
             accessibility: <p>Tooltip usage should provide non-visual context parity in nearby text.</p>
           }}
         />
@@ -567,9 +618,9 @@ export function DocsApp() {
           name={`Popover (Tier ${maturityMap.Popover})`}
           sections={{
             default: <Popover trigger={<Button>Open</Button>} content="Popover content" />,
-            variants: <Popover trigger={<Button className="fluid-btn-variant">Open</Button>} content="Variant content" />,
-            disabled: <p>Disabled popover trigger states are not yet implemented.</p>,
-            theming: <p>Popover surface tokens will be expanded for stronger theme support.</p>,
+            variants: <Popover className="fluid-popover-variant" trigger={<Button className="fluid-btn-variant">Open</Button>} content="Variant content" />,
+            disabled: <Popover className="fluid-popover-disabled" trigger={<Button disabled>Disabled</Button>} content="Disabled preview" />,
+            theming: <Popover className="fluid-popover-themed" trigger={<Button className="fluid-btn-themed">Open</Button>} content="Themed content" />,
             accessibility: <p>Popover content should preserve focus order and readable structure.</p>
           }}
         />
@@ -579,14 +630,33 @@ export function DocsApp() {
         <ComponentPage
           name={`DropdownMenu (Tier ${maturityMap.DropdownMenu})`}
           sections={{
-            default: <DropdownMenu items={[{ label: "Edit", value: "edit" }, { label: "Delete", value: "delete" }]} />,
+            default: (
+              <DropdownMenu
+                triggerLabel="Actions"
+                items={[{ label: "Edit", value: "edit" }, { label: "Delete", value: "delete" }]}
+              />
+            ),
             variants: (
               <DropdownMenu
+                triggerLabel="More"
+                className="fluid-dropdown-menu-variant"
                 items={[{ label: "Open", value: "open" }, { label: "Share", value: "share" }]}
               />
             ),
-            disabled: <p>Disabled menu item model is planned in a follow-up iteration.</p>,
-            theming: <p>Menu spacing and hover token alignment remains in progress.</p>,
+            disabled: (
+              <DropdownMenu
+                triggerLabel="Disabled"
+                className="fluid-dropdown-menu-disabled"
+                items={[{ label: "Locked", value: "locked" }]}
+              />
+            ),
+            theming: (
+              <DropdownMenu
+                triggerLabel="Theme"
+                className="fluid-dropdown-menu-themed"
+                items={[{ label: "Theme Action", value: "theme" }]}
+              />
+            ),
             accessibility: <p>Menu control semantics will be hardened with richer keyboard navigation.</p>
           }}
         />
@@ -597,9 +667,9 @@ export function DocsApp() {
           name={`Toast (Tier ${maturityMap.Toast})`}
           sections={{
             default: <Toast>Saved successfully</Toast>,
-            variants: <Toast className="fluid-btn-variant">Warning message</Toast>,
+            variants: <Toast className="fluid-toast-variant">Warning message</Toast>,
             disabled: <p>Toast queue/disable behavior is not applicable in this basic preview.</p>,
-            theming: <Toast className="fluid-btn-themed">Themed toast</Toast>,
+            theming: <Toast className="fluid-toast-themed">Themed toast</Toast>,
             accessibility: <p>Toast uses status role for non-blocking announcements.</p>
           }}
         />
@@ -610,9 +680,9 @@ export function DocsApp() {
           name={`Badge (Tier ${maturityMap.Badge})`}
           sections={{
             default: <Badge>New</Badge>,
-            variants: <Badge className="fluid-btn-variant">Beta</Badge>,
+            variants: <Badge className="fluid-badge-variant">Beta</Badge>,
             disabled: <p>Disabled badge styling is pending token-level semantic color support.</p>,
-            theming: <Badge className="fluid-btn-themed">Themed</Badge>,
+            theming: <Badge className="fluid-badge-themed">Themed</Badge>,
             accessibility: <p>Badges should not be the only way to communicate critical status.</p>
           }}
         />
@@ -623,9 +693,9 @@ export function DocsApp() {
           name={`Avatar (Tier ${maturityMap.Avatar})`}
           sections={{
             default: <Avatar alt="Demo avatar" src="https://placehold.co/48x48/png" />,
-            variants: <Avatar alt="Variant avatar" src="https://placehold.co/48x48/png" className="fluid-btn-variant" />,
+            variants: <Avatar alt="Variant avatar" src="https://placehold.co/48x48/png" className="fluid-avatar-variant" />,
             disabled: <p>Disabled avatar state is not defined because avatar is presentational.</p>,
-            theming: <Avatar alt="Themed avatar" src="https://placehold.co/48x48/png" className="fluid-btn-themed" />,
+            theming: <Avatar alt="Themed avatar" src="https://placehold.co/48x48/png" className="fluid-avatar-themed" />,
             accessibility: <p>Avatar must always include meaningful `alt` text.</p>
           }}
         />
@@ -636,9 +706,9 @@ export function DocsApp() {
           name={`Pagination (Tier ${maturityMap.Pagination})`}
           sections={{
             default: <Pagination page={2} totalPages={5} />,
-            variants: <Pagination page={3} totalPages={9} className="fluid-btn-variant" />,
+            variants: <Pagination page={3} totalPages={9} className="fluid-pagination-variant" />,
             disabled: <p>Disabled previous/next controls are planned for edge pages.</p>,
-            theming: <Pagination page={1} totalPages={4} className="fluid-btn-themed" />,
+            theming: <Pagination page={1} totalPages={4} className="fluid-pagination-themed" />,
             accessibility: <p>Pagination is wrapped in navigation semantics via `nav`.</p>
           }}
         />
@@ -651,6 +721,7 @@ export function DocsApp() {
             default: <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Components" }, { label: "Button" }]} />,
             variants: (
               <Breadcrumb
+                className="fluid-breadcrumb-variant"
                 items={[{ label: "Docs", href: "/" }, { label: "Academy", href: "/academy" }, { label: "Deep Dive" }]}
               />
             ),
@@ -671,18 +742,62 @@ export function DocsApp() {
                 <DataTable
                   columns={[
                     { key: "name", header: "Name" },
-                    { key: "role", header: "Role" }
+                    { key: "role", header: "Role" },
+                    { key: "status", header: "Status" }
                   ]}
                   rows={[
-                    { id: "1", name: "Amar", role: "Admin" },
-                    { id: "2", name: "Ravi", role: "User" }
+                    { id: "1", name: "Amar", role: "Admin", status: "Active" },
+                    { id: "2", name: "Ravi", role: "User", status: "Pending" },
+                    { id: "3", name: "Anika", role: "Editor", status: "Active" }
                   ]}
                 />
               </>
             ),
-            variants: <p>Variant model is not yet defined for DataTable.</p>,
-            disabled: <p>Disabled row/cell interactions are pending.</p>,
-            theming: <p>Table tokens for density and borders are still evolving.</p>,
+            variants: (
+              <DataTable
+                className="fluid-data-table-variant"
+                columns={[
+                  { key: "project", header: "Project" },
+                  { key: "owner", header: "Owner" },
+                  { key: "priority", header: "Priority" }
+                ]}
+                rows={[
+                  { id: "p1", project: "Design System", owner: "Maya", priority: "High" },
+                  { id: "p2", project: "Mobile QA", owner: "Ravi", priority: "Medium" },
+                  { id: "p3", project: "Docs Refresh", owner: "Anika", priority: "Low" }
+                ]}
+              />
+            ),
+            disabled: (
+              <>
+                <p>Read-only preview (experimental):</p>
+                <DataTable
+                  className="fluid-data-table-disabled"
+                  columns={[
+                    { key: "record", header: "Record" },
+                    { key: "state", header: "State" }
+                  ]}
+                  rows={[
+                    { id: "r1", record: "Sync Job", state: "Locked" },
+                    { id: "r2", record: "Audit Log", state: "Locked" }
+                  ]}
+                />
+              </>
+            ),
+            theming: (
+              <DataTable
+                className="fluid-data-table-themed"
+                columns={[
+                  { key: "module", header: "Module" },
+                  { key: "owner", header: "Owner" },
+                  { key: "eta", header: "ETA" }
+                ]}
+                rows={[
+                  { id: "m1", module: "Auth", owner: "Ishan", eta: "2d" },
+                  { id: "m2", module: "Billing", owner: "Neha", eta: "5d" }
+                ]}
+              />
+            ),
             accessibility: (
               <>
                 <p>DataTable uses semantic table elements.</p>
@@ -707,9 +822,9 @@ export function DocsApp() {
                 <DatePicker aria-label="date-picker-demo" />
               </>
             ),
-            variants: <DatePicker aria-label="date-picker-variant" className="fluid-input-variant" />,
+            variants: <DatePicker aria-label="date-picker-variant" className="fluid-date-picker-variant" />,
             disabled: <DatePicker aria-label="date-picker-disabled" disabled />,
-            theming: <DatePicker aria-label="date-picker-themed" className="fluid-input-themed" />,
+            theming: <DatePicker aria-label="date-picker-themed" className="fluid-date-picker-themed" />,
             accessibility: (
               <>
                 <p>DatePicker currently wraps native date input semantics.</p>
@@ -734,9 +849,9 @@ export function DocsApp() {
                 <CommandPalette items={[{ label: "Open Settings", value: "settings" }]} />
               </>
             ),
-            variants: <CommandPalette items={[{ label: "Create Project", value: "create" }]} className="fluid-input-variant" />,
-            disabled: <p>Disabled command execution model is pending.</p>,
-            theming: <p>Command palette overlays and surfaces are still evolving.</p>,
+            variants: <CommandPalette items={[{ label: "Create Project", value: "create" }]} className="fluid-command-palette-variant" />,
+            disabled: <CommandPalette items={[{ label: "Disabled Action", value: "disabled" }]} className="fluid-command-palette-disabled" />,
+            theming: <CommandPalette items={[{ label: "Theme Action", value: "theme" }]} className="fluid-command-palette-themed" />,
             accessibility: (
               <>
                 <p>Command list uses plain button controls for now.</p>
@@ -770,7 +885,7 @@ export function DocsApp() {
             variants: (
               <Combobox
                 aria-label="combobox-variant"
-                className="fluid-input-variant"
+                className="fluid-combobox-variant"
                 options={[
                   { value: "design", label: "Design" },
                   { value: "dev", label: "Development" }
@@ -781,7 +896,7 @@ export function DocsApp() {
             theming: (
               <Combobox
                 aria-label="combobox-themed"
-                className="fluid-input-themed"
+                className="fluid-combobox-themed"
                 options={[{ value: "theme", label: "Theme" }]}
               />
             ),

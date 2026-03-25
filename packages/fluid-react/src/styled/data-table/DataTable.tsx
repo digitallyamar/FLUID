@@ -1,9 +1,9 @@
 import React from "react";
 import type { DataTableProps } from "./types.js";
 
-export function DataTable({ columns, rows, ...props }: DataTableProps) {
+export function DataTable({ columns, rows, className = "", ...props }: DataTableProps) {
   return (
-    <table {...props}>
+    <table {...props} className={`fluid-data-table ${className}`.trim()}>
       <thead>
         <tr>
           {columns.map((column) => (

@@ -4,7 +4,7 @@ import { join } from "node:path";
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import * as fluid from "../../../packages/fluid-react/src";
 
 const tierBComponentNames = [
@@ -51,6 +51,29 @@ describe("Tier B components", () => {
     expect(screen.queryByText("A body")).toBeNull();
     await userEvent.click(screen.getByRole("button", { name: "Section A" }));
     expect(screen.getByText("A body")).toBeTruthy();
+  });
+
+  it("DropdownMenu is folded by default and expands on trigger click", async () => {
+    const DropdownMenu = (fluid as Record<string, any>).DropdownMenu;
+    const onSelect = vi.fn();
+
+    render(
+      <DropdownMenu
+        triggerLabel="Actions"
+        items={[
+          { label: "Edit", value: "edit" },
+          { label: "Delete", value: "delete" }
+        ]}
+        onSelect={onSelect}
+      />
+    );
+
+    expect(screen.queryByRole("menuitem", { name: "Edit" })).toBeNull();
+    await userEvent.click(screen.getByRole("button", { name: "Actions" }));
+    await screen.findByRole("menuitem", { name: "Edit" });
+    await userEvent.click(screen.getByRole("menuitem", { name: "Edit" }));
+    expect(onSelect).toHaveBeenCalledWith("edit");
+    expect(screen.queryByRole("menuitem", { name: "Delete" })).toBeNull();
   });
 
   it("has Tier B maturity metadata entries", () => {
