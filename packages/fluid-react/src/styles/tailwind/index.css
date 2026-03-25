@@ -40,6 +40,28 @@
   background: #fff7ed;
 }
 
+.fluid-card {
+  border: 1px solid #cbd5e1;
+  border-radius: 0.75rem;
+  padding: 0.8rem;
+  background: #ffffff;
+}
+
+.fluid-card-variant {
+  border-color: #0ea5e9;
+  background: #eff6ff;
+}
+
+.fluid-card-disabled {
+  opacity: 0.55;
+  background: #f8fafc;
+}
+
+.fluid-card-themed {
+  border-color: #f59e0b;
+  background: #fff7ed;
+}
+
 main {
   max-width: 760px;
   margin: 0 auto;

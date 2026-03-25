@@ -58,6 +58,8 @@ function ComponentPage({ name, sections }: { name: string; sections: ComponentSe
 export function DocsApp() {
   const route = window.location.pathname;
   const [buttonClicks, setButtonClicks] = React.useState(0);
+  const [buttonVariantClicks, setButtonVariantClicks] = React.useState(0);
+  const [buttonThemeClicks, setButtonThemeClicks] = React.useState(0);
 
   switch (route) {
     case "/":
@@ -93,18 +95,36 @@ export function DocsApp() {
             ),
             variants: (
               <div style={{ display: "flex", gap: 8 }}>
-                <Button className="fluid-btn-variant">Accent</Button>
-                <IconButton aria-label="star" className="fluid-btn-variant">
+                <Button
+                  className="fluid-btn-variant"
+                  onClick={() => setButtonVariantClicks((v) => v + 1)}
+                >
+                  Accent ({buttonVariantClicks})
+                </Button>
+                <IconButton
+                  aria-label="star"
+                  className="fluid-btn-variant"
+                  onClick={() => setButtonVariantClicks((v) => v + 1)}
+                >
                   *
                 </IconButton>
               </div>
             ),
             disabled: <Button disabled>Disabled</Button>,
-            theming: <Button className="fluid-btn-themed">Construction Theme</Button>,
+            theming: (
+              <Button
+                className="fluid-btn-themed"
+                onClick={() => setButtonThemeClicks((v) => v + 1)}
+              >
+                Construction Theme ({buttonThemeClicks})
+              </Button>
+            ),
             accessibility: (
               <p>
                 Click or focus then press Enter/Space. Current click count:{" "}
-                <strong>{buttonClicks}</strong>
+                <strong>{buttonClicks}</strong>; variant clicks:{" "}
+                <strong>{buttonVariantClicks}</strong>; themed clicks:{" "}
+                <strong>{buttonThemeClicks}</strong>
               </p>
             )
           }}
@@ -248,10 +268,10 @@ export function DocsApp() {
         <ComponentPage
           name="Card"
           sections={{
-            default: <Card>Card Body</Card>,
-            variants: <Card className="fluid-input-variant">Variant Card</Card>,
-            disabled: <Card>Not interactive</Card>,
-            theming: <Card className="fluid-btn-themed">Themed Card</Card>,
+            default: <Card className="fluid-card">Card Body</Card>,
+            variants: <Card className="fluid-card fluid-card-variant">Variant Card</Card>,
+            disabled: <Card className="fluid-card fluid-card-disabled">Disabled Preview</Card>,
+            theming: <Card className="fluid-card fluid-card-themed">Themed Card</Card>,
             accessibility: <p>Card is a presentational container and inherits semantic children.</p>
           }}
         />
