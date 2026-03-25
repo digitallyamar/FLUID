@@ -1,0 +1,14 @@
+{
+  "name": "@fluid-ui/react",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./headless": "./dist/headless/index.js",
+    "./tokens": "./dist/tokens/index.js",
+    "./tailwind-preset": "./dist/tailwind-preset.js",
+    "./styles.css": "./src/styles/dist/fluid.css"
+  }
+}
