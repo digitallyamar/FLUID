@@ -10,8 +10,9 @@
 
 ## Status Sync (2026-03-25)
 
-- Checkbox state below is synced to implemented work on `feature/fluid-v1-implementation` through commit `ac84b54`.
+- Checkbox state below is synced to implemented work on `feature/fluid-v1-implementation` through commit `a6c5cd0`.
 - Completed: Tasks 1-7 (foundation, package/build artifacts, Tier A/B/C components, docs, and tests).
+- Additional implemented update after Task 7: SEO-enabling improvements for `Breadcrumb` and `Pagination` (`a6c5cd0`).
 - Pending by this plan's exact acceptance criteria: Task 4A, Task 8, Task 9, and Final Verification Gate.
 - Note: docs app implementation is currently Vite-based (`apps/docs`) rather than the original Next.js 15 assumption in this plan.
 
