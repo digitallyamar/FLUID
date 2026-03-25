@@ -13,6 +13,7 @@
     "typecheck": "tsc -b"
   },
   "devDependencies": {
+    "@playwright/test": "^1.55.0",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.2.14",
