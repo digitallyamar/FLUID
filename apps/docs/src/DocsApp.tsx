@@ -13,6 +13,7 @@ import {
   Textarea
 } from "@fluid-ui/react";
 import firstPrinciplesMarkdown from "../../../docs/academy/first-principles-web-fundamentals.md?raw";
+import sessionHandoffMarkdown from "../../../docs/academy/session-handoff-guide.md?raw";
 
 const componentRoutes = [
   { name: "Button", href: "/components/button" },
@@ -25,6 +26,19 @@ const componentRoutes = [
   { name: "Switch", href: "/components/switch" },
   { name: "Card", href: "/components/card" },
   { name: "Modal", href: "/components/modal" }
+];
+
+const academyRoutes = [
+  {
+    name: "First Principles Web Fundamentals",
+    href: "/academy/first-principles",
+    markdown: firstPrinciplesMarkdown
+  },
+  {
+    name: "Session Handoff Guide",
+    href: "/academy/session-handoff",
+    markdown: sessionHandoffMarkdown
+  }
 ];
 
 function SectionFrame({ title, children }: { title: string; children: React.ReactNode }) {
@@ -74,8 +88,22 @@ export function DocsApp() {
               <a href="/components">Browse Components</a>
             </li>
             <li>
-              <a href="/academy/first-principles">Read Learning Doc: First Principles</a>
+              <a href="/academy">Browse Academy Notes</a>
             </li>
+          </ul>
+        </main>
+      );
+    case "/academy":
+    case "/academy/":
+      return (
+        <main>
+          <h1>Academy Notes</h1>
+          <ul>
+            {academyRoutes.map((item) => (
+              <li key={item.href}>
+                <a href={item.href}>{item.name}</a>
+              </li>
+            ))}
           </ul>
         </main>
       );
@@ -86,6 +114,16 @@ export function DocsApp() {
           <article
             className="academy-markdown"
             dangerouslySetInnerHTML={{ __html: marked.parse(firstPrinciplesMarkdown) }}
+          />
+        </main>
+      );
+    case "/academy/session-handoff":
+      return (
+        <main>
+          <h1>Academy: Session Handoff Guide</h1>
+          <article
+            className="academy-markdown"
+            dangerouslySetInnerHTML={{ __html: marked.parse(sessionHandoffMarkdown) }}
           />
         </main>
       );
