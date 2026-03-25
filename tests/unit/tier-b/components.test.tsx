@@ -76,6 +76,35 @@ describe("Tier B components", () => {
     expect(screen.queryByRole("menuitem", { name: "Delete" })).toBeNull();
   });
 
+  it("Breadcrumb exposes semantic current page marker", () => {
+    const Breadcrumb = (fluid as Record<string, any>).Breadcrumb;
+    const { container } = render(
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Components", href: "/components" },
+          { label: "Breadcrumb" }
+        ]}
+      />
+    );
+
+    expect(screen.getByLabelText("breadcrumb")).toBeTruthy();
+    expect(screen.getByText("Breadcrumb").getAttribute("aria-current")).toBe("page");
+    expect(container.querySelector(".fluid-breadcrumb-separator")?.getAttribute("aria-hidden")).toBe("true");
+  });
+
+  it("Pagination can render crawlable prev/next links", () => {
+    const Pagination = (fluid as Record<string, any>).Pagination;
+    render(
+      <Pagination page={3} totalPages={9} getPageHref={(nextPage: number) => `/docs?page=${nextPage}`} />
+    );
+
+    expect(screen.getByRole("link", { name: "Previous" }).getAttribute("href")).toBe("/docs?page=2");
+    expect(screen.getByRole("link", { name: "Previous" }).getAttribute("rel")).toBe("prev");
+    expect(screen.getByRole("link", { name: "Next" }).getAttribute("href")).toBe("/docs?page=4");
+    expect(screen.getByRole("link", { name: "Next" }).getAttribute("rel")).toBe("next");
+  });
+
   it("has Tier B maturity metadata entries", () => {
     const maturityPath = join(process.cwd(), "apps/docs/content/maturity.json");
     const maturity = JSON.parse(readFileSync(maturityPath, "utf8")) as Record<string, string>;
