@@ -1,5 +1,16 @@
 {
   "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@fluid-ui/react": [
+        "../../packages/fluid-react/src/index.ts"
+      ],
+      "@fluid-ui/react/*": [
+        "../../packages/fluid-react/src/*"
+      ]
+    }
+  },
   "include": [
     "src"
   ]
