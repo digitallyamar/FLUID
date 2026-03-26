@@ -42,6 +42,13 @@ import mobileReadinessMarkdown from "../../../docs/academy/mobile-readiness-back
 import backlogIndexMarkdown from "../../../docs/academy/backlog-index.md?raw";
 import buttonDeepDiveMarkdown from "../../../docs/academy/button-component-deep-dive.md?raw";
 import packageUsageTutorialMarkdown from "../../../docs/academy/fluid-package-usage-tutorial.md?raw";
+import componentBoundaryModelMarkdown from "../../../docs/academy/concept-briefs/component-boundary-model.md?raw";
+import tokenContractModelMarkdown from "../../../docs/academy/concept-briefs/token-contract-model.md?raw";
+import buildArtifactModelMarkdown from "../../../docs/academy/concept-briefs/build-artifact-model.md?raw";
+import decisionLogMarkdown from "../../../docs/academy/decision-log.md?raw";
+import reactRenderEventModelMarkdown from "../../../docs/academy/deep-dives/react-render-and-event-model.md?raw";
+import buildPipelineAnatomyMarkdown from "../../../docs/academy/deep-dives/build-pipeline-anatomy.md?raw";
+import ssrHydrationConstraintsMarkdown from "../../../docs/academy/deep-dives/ssr-hydration-constraints.md?raw";
 
 const THEME_STORAGE_KEY = "fluid-docs-theme-id";
 
@@ -120,6 +127,41 @@ const academyRoutes = [
     name: "FLUID Package Usage Tutorial",
     href: "/academy/package-usage-tutorial",
     markdown: packageUsageTutorialMarkdown
+  },
+  {
+    name: "Concept Brief: Component Boundary Model",
+    href: "/academy/concept-brief-component-boundary",
+    markdown: componentBoundaryModelMarkdown
+  },
+  {
+    name: "Concept Brief: Token Contract Model",
+    href: "/academy/concept-brief-token-contract",
+    markdown: tokenContractModelMarkdown
+  },
+  {
+    name: "Concept Brief: Build Artifact Model",
+    href: "/academy/concept-brief-build-artifact",
+    markdown: buildArtifactModelMarkdown
+  },
+  {
+    name: "Decision Log",
+    href: "/academy/decision-log",
+    markdown: decisionLogMarkdown
+  },
+  {
+    name: "Deep Dive: React Render and Event Model",
+    href: "/academy/deep-dive-react-render-event",
+    markdown: reactRenderEventModelMarkdown
+  },
+  {
+    name: "Deep Dive: Build Pipeline Anatomy",
+    href: "/academy/deep-dive-build-pipeline",
+    markdown: buildPipelineAnatomyMarkdown
+  },
+  {
+    name: "Deep Dive: SSR/Hydration Constraints",
+    href: "/academy/deep-dive-ssr-hydration",
+    markdown: ssrHydrationConstraintsMarkdown
   },
   {
     name: "Backlog Index",
@@ -364,6 +406,76 @@ export function DocsApp() {
           <article
             className="academy-markdown"
             dangerouslySetInnerHTML={{ __html: marked.parse(packageUsageTutorialMarkdown) }}
+          />
+        </main>
+      );
+    case "/academy/concept-brief-component-boundary":
+      return (
+        <main>
+          <h1>Academy: Concept Brief - Component Boundary Model</h1>
+          <article
+            className="academy-markdown"
+            dangerouslySetInnerHTML={{ __html: marked.parse(componentBoundaryModelMarkdown) }}
+          />
+        </main>
+      );
+    case "/academy/concept-brief-token-contract":
+      return (
+        <main>
+          <h1>Academy: Concept Brief - Token Contract Model</h1>
+          <article
+            className="academy-markdown"
+            dangerouslySetInnerHTML={{ __html: marked.parse(tokenContractModelMarkdown) }}
+          />
+        </main>
+      );
+    case "/academy/concept-brief-build-artifact":
+      return (
+        <main>
+          <h1>Academy: Concept Brief - Build Artifact Model</h1>
+          <article
+            className="academy-markdown"
+            dangerouslySetInnerHTML={{ __html: marked.parse(buildArtifactModelMarkdown) }}
+          />
+        </main>
+      );
+    case "/academy/decision-log":
+      return (
+        <main>
+          <h1>Academy: Decision Log</h1>
+          <article
+            className="academy-markdown"
+            dangerouslySetInnerHTML={{ __html: marked.parse(decisionLogMarkdown) }}
+          />
+        </main>
+      );
+    case "/academy/deep-dive-react-render-event":
+      return (
+        <main>
+          <h1>Academy: Deep Dive - React Render and Event Model</h1>
+          <article
+            className="academy-markdown"
+            dangerouslySetInnerHTML={{ __html: marked.parse(reactRenderEventModelMarkdown) }}
+          />
+        </main>
+      );
+    case "/academy/deep-dive-build-pipeline":
+      return (
+        <main>
+          <h1>Academy: Deep Dive - Build Pipeline Anatomy</h1>
+          <article
+            className="academy-markdown"
+            dangerouslySetInnerHTML={{ __html: marked.parse(buildPipelineAnatomyMarkdown) }}
+          />
+        </main>
+      );
+    case "/academy/deep-dive-ssr-hydration":
+      return (
+        <main>
+          <h1>Academy: Deep Dive - SSR/Hydration Constraints</h1>
+          <article
+            className="academy-markdown"
+            dangerouslySetInnerHTML={{ __html: marked.parse(ssrHydrationConstraintsMarkdown) }}
           />
         </main>
       );
