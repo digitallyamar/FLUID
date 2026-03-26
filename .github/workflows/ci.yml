@@ -18,6 +18,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Security sweep
+        run: npm run prepush:security
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:

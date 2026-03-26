@@ -19,6 +19,7 @@ npm --prefix tests/smoke/package-consumer run build
 ## CI and Release Automation
 
 - CI workflow: `.github/workflows/ci.yml`
+  - Security sweep (`npm run prepush:security`)
   - Lint, typecheck, unit tests, package build
   - Docs build + Playwright docs smoke
   - Downstream consumer smoke install/build
@@ -37,3 +38,8 @@ npm run changeset
 npm run version-packages
 npm run release
 ```
+
+## Security Checklist
+
+- See `docs/academy/repo-visibility-and-security-checklist.md`.
+- Run `npm run prepush:security` before pushing.

@@ -12,6 +12,7 @@
     "test:e2e": "playwright test",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit -p packages/fluid-react/tsconfig.build.json && tsc --noEmit -p apps/docs/tsconfig.check.json",
+    "prepush:security": "bash scripts/security/prepush-security.sh",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "npm run -w @fluid-ui/react build && changeset publish"
