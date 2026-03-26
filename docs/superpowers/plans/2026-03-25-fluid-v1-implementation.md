@@ -8,6 +8,13 @@
 
 **Tech Stack:** React 19, TypeScript 5.6, Vite 5, Tailwind CSS 4, Vitest, React Testing Library, Playwright, Next.js 15 (docs app).
 
+## Status Sync (2026-03-26)
+
+- `feature/fluid-v1-implementation` was merged into `main` via `eff1558`.
+- Task 8, Task 9, and Task 10 Step 4/5/6 are complete.
+- Final verification gate command groups were run successfully before merge.
+- The optional "release candidate commit" step was intentionally skipped in favor of direct merge to `main`.
+
 ---
 
 ## Scope Guard
@@ -732,7 +739,7 @@ git commit -m "feat: add tier-b and tier-c components with maturity metadata"
 - Create: `/home/amar/dev/FLUID/apps/docs/package.json`
 - Test: `/home/amar/dev/FLUID/tests/e2e/docs-smoke.spec.ts`
 
-- [ ] **Step 1: Write failing e2e docs smoke test**
+- [x] **Step 1: Write failing e2e docs smoke test**
 
 ```ts
 import { test, expect } from "@playwright/test";
@@ -744,12 +751,12 @@ test("docs renders component catalog and maturity tags", async ({ page }) => {
 });
 ```
 
-- [ ] **Step 2: Run e2e to verify failure**
+- [x] **Step 2: Run e2e to verify failure**
 
 Run: `npm run test:e2e -- tests/e2e/docs-smoke.spec.ts`
 Expected: FAIL (docs app not wired in CI path yet).
 
-- [ ] **Step 3: Implement CI and release workflows**
+- [x] **Step 3: Implement CI and release workflows**
 
 CI (`ci.yml`) stages:
 - install
@@ -807,7 +814,7 @@ export default defineConfig({
 });
 ```
 
-- [ ] **Step 4: Re-run verification suite**
+- [x] **Step 4: Re-run verification suite**
 
 Run:
 - `npm run lint`
@@ -821,7 +828,7 @@ Run:
 
 Expected: all PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add .github/workflows .changeset README.md apps/docs/package.json tests/e2e/docs-smoke.spec.ts tests/smoke/package-consumer
@@ -835,33 +842,33 @@ git commit -m "chore: add ci verification and release automation"
 - Create: `/home/amar/dev/FLUID/docs/academy/decision-log.md`
 - Create: `/home/amar/dev/FLUID/docs/academy/deep-dives/*.md`
 
-- [ ] **Step 1: Add concept briefs for core slices**
+- [x] **Step 1: Add concept briefs for core slices**
 
 Required briefs:
 - component boundary model
 - token contract model
 - build artifact model
 
-- [ ] **Step 2: Add decision log entries**
+- [x] **Step 2: Add decision log entries**
 
 Minimum entries:
 - React 19/TS 5.6 lock
 - headless + styled split
 - Tailwind + prebuilt CSS dual path
 
-- [ ] **Step 3: Add deep dives**
+- [x] **Step 3: Add deep dives**
 
 Minimum topics:
 - React render and event model in FLUID components
 - build pipeline anatomy (Vite + CSS artifact emission)
 - SSR/hydration constraints for interactive components
 
-- [ ] **Step 4: Verify docs presence**
+- [x] **Step 4: Verify docs presence**
 
 Run: `rg -n "component boundary model|token contract model|build artifact model|React 19/TS 5.6 lock|headless \\+ styled split|Tailwind \\+ prebuilt CSS dual path|React render and event model|build pipeline anatomy|SSR/hydration constraints" docs/academy`
 Expected: PASS with required academy topic markers present.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add docs/academy
@@ -885,13 +892,13 @@ Goal:
 - [x] **Step 1: Introduce centralized CSS variables (`:root`)**
 - [x] **Step 2: Replace hardcoded color literals in component classes with token variables**
 - [x] **Step 3: Standardize docs route examples so each component shows meaningful `default` / `variants` / `theming` visual differences**
-- [ ] **Step 4: Add runtime token override contract (e.g., data-theme / inline style variable injection API)**
-- [ ] **Step 5: Add persisted theme profile schema for future dashboard integration**
-- [ ] **Step 6: Commit**
+- [x] **Step 4: Add runtime token override contract (e.g., data-theme / inline style variable injection API)**
+- [x] **Step 5: Add persisted theme profile schema for future dashboard integration**
+- [x] **Step 6: Commit**
 
 ## Final Verification Gate
 
-- [ ] Run full local gate:
+- [x] Run full local gate:
 
 ```bash
 npm run lint
@@ -906,7 +913,7 @@ npm run test:e2e
 
 Expected: all PASS with no skipped required checks.
 
-- [ ] Run package smoke import check:
+- [x] Run package smoke import check:
 
 ```bash
 node -e "Promise.all([import('@fluid-ui/react'), import('@fluid-ui/react/tailwind-preset')]).then(() => console.log('ok'))"

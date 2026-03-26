@@ -1,5 +1,12 @@
 # Session Handoff Guide
 
+## Checkpoint (2026-03-26)
+
+- Feature branch `feature/fluid-v1-implementation` merged into `main` via `eff1558`.
+- Task progress through Task 10 Step 6 is complete.
+- Final verification gate command groups were executed before merge.
+- Current default continuation branch: `main`.
+
 ## Purpose
 
 Use this guide to start a new chat/session and continue FLUID development without losing context.
