@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - feature/fluid-v1-implementation
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm run test:unit
+
+      - name: Build package
+        run: npm run build
+
+      - name: Build docs app
+        run: npm run -w @fluid-ui/docs build
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Docs smoke e2e
+        run: npm run test:e2e -- tests/e2e/docs-smoke.spec.ts
+
+      - name: Smoke package consumer install
+        run: npm --prefix tests/smoke/package-consumer install
+
+      - name: Smoke package consumer build
+        run: npm --prefix tests/smoke/package-consumer run build

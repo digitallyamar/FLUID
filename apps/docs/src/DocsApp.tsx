@@ -136,6 +136,16 @@ const academyRoutes = [
 const academyCoreRoutes = academyRoutes.filter((item) => item.href !== "/academy/mobile-readiness" && item.href !== "/academy/backlogs");
 const academyBacklogRoutes = academyRoutes.filter((item) => item.href === "/academy/mobile-readiness" || item.href === "/academy/backlogs");
 
+function getTierForComponentRoute(name: string): "A" | "B" | "C" {
+  if (name.includes("(Tier B)")) {
+    return "B";
+  }
+  if (name.includes("(Tier C)")) {
+    return "C";
+  }
+  return "A";
+}
+
 function SectionFrame({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section style={{ marginBottom: 16 }}>
@@ -241,7 +251,7 @@ export function DocsApp() {
             <input
               aria-label={field.ariaLabel}
               type="color"
-              value={themeColorOverrides[field.key] ?? activeThemeProfile?.tokens.color[field.key] ?? "#000000"}
+              value={themeColorOverrides[field.key] ?? activeThemeProfile?.tokens.color?.[field.key] ?? "#000000"}
               onChange={(event) =>
                 setThemeColorOverrides((previous) => ({ ...previous, [field.key]: event.target.value }))
               }
@@ -377,13 +387,33 @@ export function DocsApp() {
           />
         </main>
       );
-    case "/components":
+    case "/components": {
+      const tierARoutes = componentRoutes.filter((item) => getTierForComponentRoute(item.name) === "A");
+      const tierBRoutes = componentRoutes.filter((item) => getTierForComponentRoute(item.name) === "B");
+      const tierCRoutes = componentRoutes.filter((item) => getTierForComponentRoute(item.name) === "C");
       return (
         <main>
           <h1>Components</h1>
           {themeDashboard}
+          <h2>Tier A</h2>
           <ul>
-            {componentRoutes.map((item) => (
+            {tierARoutes.map((item) => (
+              <li key={item.href}>
+                <a href={item.href}>{item.name}</a>
+              </li>
+            ))}
+          </ul>
+          <h2>Tier B</h2>
+          <ul>
+            {tierBRoutes.map((item) => (
+              <li key={item.href}>
+                <a href={item.href}>{item.name}</a>
+              </li>
+            ))}
+          </ul>
+          <h2>Tier C</h2>
+          <ul>
+            {tierCRoutes.map((item) => (
               <li key={item.href}>
                 <a href={item.href}>{item.name}</a>
               </li>
@@ -391,6 +421,7 @@ export function DocsApp() {
           </ul>
         </main>
       );
+    }
     case "/theme-dashboard":
     case "/theme-dashboard/":
       return (

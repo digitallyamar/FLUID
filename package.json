@@ -10,14 +10,21 @@
     "test:unit": "vitest run tests/unit",
     "test:e2e": "playwright test",
     "lint": "eslint .",
-    "typecheck": "tsc -b"
+    "typecheck": "tsc --noEmit -p packages/fluid-react/tsconfig.build.json && tsc --noEmit -p apps/docs/tsconfig.check.json",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "npm run -w @fluid-ui/react build && changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.30.0",
     "@playwright/test": "^1.55.0",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
+    "eslint": "^10.1.0",
     "jsdom": "^29.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
