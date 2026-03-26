@@ -61,8 +61,9 @@ npm --prefix tests/smoke/package-consumer run build
   - Docs build + Playwright docs smoke
   - Downstream consumer smoke install/build
 - Release workflow: `.github/workflows/release.yml`
-  - Uses Changesets to create version PRs and publish `@fluid-ui/react`
-  - Requires repository `NPM_TOKEN` secret for publish step
+  - On push to `main`, uses Changesets to create/update release PRs
+  - npm publish runs only via manual `workflow_dispatch` with `publish=true`
+  - Requires repository `NPM_TOKEN` secret only for manual publish
 
 ## Changesets
 

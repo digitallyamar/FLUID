@@ -5,6 +5,12 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish packages to npm
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -35,7 +41,18 @@ jobs:
       - name: Build package
         run: npm run build
 
-      - name: Create release PR or publish
+      - name: Create release PR
+        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.publish != 'true') }}
+        uses: changesets/action@v1
+        with:
+          version: npm run version-packages
+          title: "chore: release packages"
+          commit: "chore: version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to npm
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.publish == 'true' }}
         uses: changesets/action@v1
         with:
           version: npm run version-packages
