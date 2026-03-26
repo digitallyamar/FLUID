@@ -2,19 +2,11 @@
 
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build and release FLUID V1 P0 as a production-usable React component package (`@fluid-ui/react`) with tiered components, docs, tests, dual styling consumption (Tailwind + prebuilt CSS), and SEO-enabling primitives.
+**Goal:** Build and release FLUID V1 P0 as a production-usable React component package (`@fluid-ui/react`) with tiered components, docs, tests, and dual styling consumption (Tailwind + prebuilt CSS).
 
 **Architecture:** Use a single-package repo with strict internal boundaries: `headless` behavior, `styled` presentation, `tokens` contract, and build artifacts (`fluid.css`, tailwind preset). Ship a thin vertical slice first, then expand Tier A/B/C with explicit quality gates and release automation.
 
 **Tech Stack:** React 19, TypeScript 5.6, Vite 5, Tailwind CSS 4, Vitest, React Testing Library, Playwright, Next.js 15 (docs app).
-
-## Status Sync (2026-03-25)
-
-- Checkbox state below is synced to implemented work on `feature/fluid-v1-implementation` through commit `a6c5cd0`.
-- Completed: Tasks 1-7 (foundation, package/build artifacts, Tier A/B/C components, docs, and tests).
-- Additional implemented update after Task 7: SEO-enabling improvements for `Breadcrumb` and `Pagination` (`a6c5cd0`).
-- Pending by this plan's exact acceptance criteria: Task 4A, Task 8, Task 9, and Final Verification Gate.
-- Note: docs app implementation is currently Vite-based (`apps/docs`) rather than the original Next.js 15 assumption in this plan.
 
 ---
 
@@ -26,7 +18,6 @@ Out of scope for this plan:
 - AI style preset generation engine
 - Publicly hosted lab product
 - Non-React runtime support
-- Page-level SEO policy ownership in the core UI package (title/meta/canonical/OG rules, sitemap/robots policy, content strategy)
 
 ## File Structure Map
 
@@ -60,7 +51,7 @@ Use @test-driven-development for every implementation task and @verification-bef
 - Create: `/home/amar/dev/FLUID/.gitignore`
 - Create: `/home/amar/dev/FLUID/pnpm-workspace.yaml`
 
-- [x] **Step 1: Write failing workspace smoke test**
+- [ ] **Step 1: Write failing workspace smoke test**
 
 ```ts
 // /home/amar/dev/FLUID/tests/unit/workspace-smoke.test.ts
@@ -75,12 +66,12 @@ describe("workspace metadata", () => {
 });
 ```
 
-- [x] **Step 2: Run test to confirm failure**
+- [ ] **Step 2: Run test to confirm failure**
 
 Run: `npm run test:unit -- tests/unit/workspace-smoke.test.ts`
 Expected: FAIL because workspace files/scripts are missing.
 
-- [x] **Step 3: Add minimal workspace config**
+- [ ] **Step 3: Add minimal workspace config**
 
 ```json
 {
@@ -103,12 +94,12 @@ Expected: FAIL because workspace files/scripts are missing.
 }
 ```
 
-- [x] **Step 4: Re-run workspace smoke test**
+- [ ] **Step 4: Re-run workspace smoke test**
 
 Run: `npm run test:unit -- tests/unit/workspace-smoke.test.ts`
 Expected: PASS.
 
-- [x] **Step 5: Commit**
+- [ ] **Step 5: Commit**
 
 Run:
 ```bash
@@ -128,7 +119,7 @@ git commit -m "chore: bootstrap workspace and lock core versions"
 - Create: `/home/amar/dev/FLUID/packages/fluid-react/src/styled/button/types.ts`
 - Test: `/home/amar/dev/FLUID/tests/unit/entrypoints.test.ts`
 
-- [x] **Step 1: Write failing entrypoint test**
+- [ ] **Step 1: Write failing entrypoint test**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -163,12 +154,12 @@ describe("entrypoints", () => {
 });
 ```
 
-- [x] **Step 2: Run test to confirm failure**
+- [ ] **Step 2: Run test to confirm failure**
 
 Run: `npm run test:unit -- tests/unit/entrypoints.test.ts`
 Expected: FAIL due to missing exports.
 
-- [x] **Step 3: Implement minimal export scaffolding**
+- [ ] **Step 3: Implement minimal export scaffolding**
 
 `packages/fluid-react/package.json` baseline:
 
@@ -239,7 +230,7 @@ export function createTailwindPreset(theme: ThemeContract) {
 }
 ```
 
-- [x] **Step 4: Re-run unit test**
+- [ ] **Step 4: Re-run unit test**
 
 Run: `npm run test:unit -- tests/unit/entrypoints.test.ts`
 Expected: PASS.
@@ -247,7 +238,7 @@ Expected: PASS.
 Note:
 - Public package import smoke (`@fluid-ui/react/tailwind-preset`) is verified in Task 5 after dist artifacts exist.
 
-- [x] **Step 5: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 git add packages/fluid-react/package.json packages/fluid-react/src tests/unit/entrypoints.test.ts
@@ -263,7 +254,7 @@ git commit -m "feat: add fluid-react package skeleton and entrypoints"
 - Create: `/home/amar/dev/FLUID/packages/fluid-react/src/tokens/presets/medicine.ts`
 - Test: `/home/amar/dev/FLUID/tests/unit/tokens.test.ts`
 
-- [x] **Step 1: Write failing token tests (happy + invalid input)**
+- [ ] **Step 1: Write failing token tests (happy + invalid input)**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -303,12 +294,12 @@ describe("createTheme", () => {
 });
 ```
 
-- [x] **Step 2: Run tests to confirm failure**
+- [ ] **Step 2: Run tests to confirm failure**
 
 Run: `npm run test:unit -- tests/unit/tokens.test.ts`
 Expected: FAIL (functions not implemented).
 
-- [x] **Step 3: Implement contract + validator**
+- [ ] **Step 3: Implement contract + validator**
 
 ```ts
 export type ThemeContract = {
@@ -367,12 +358,12 @@ export const medicinePreset = createTheme({
 });
 ```
 
-- [x] **Step 4: Re-run tests**
+- [ ] **Step 4: Re-run tests**
 
 Run: `npm run test:unit -- tests/unit/tokens.test.ts`
 Expected: PASS.
 
-- [x] **Step 5: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 git add packages/fluid-react/src/tokens tests/unit/tokens.test.ts
@@ -389,7 +380,7 @@ git commit -m "feat: add token contract and validation"
 - Test: `/home/amar/dev/FLUID/tests/unit/button.test.tsx`
 - Test: `/home/amar/dev/FLUID/tests/e2e/button-docs.spec.ts`
 
-- [x] **Step 1: Write failing behavior + accessibility tests**
+- [ ] **Step 1: Write failing behavior + accessibility tests**
 
 ```tsx
 import { render, screen } from "@testing-library/react";
@@ -415,12 +406,12 @@ describe("Button", () => {
 });
 ```
 
-- [x] **Step 2: Run test to verify failure**
+- [ ] **Step 2: Run test to verify failure**
 
 Run: `npm run test:unit -- tests/unit/button.test.tsx`
 Expected: FAIL (missing component/hook).
 
-- [x] **Step 3: Implement minimal headless + styled button**
+- [ ] **Step 3: Implement minimal headless + styled button**
 
 ```ts
 // useButton.ts
@@ -449,7 +440,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 ```
 
-- [x] **Step 4: Add docs page with usage + theming examples**
+- [ ] **Step 4: Add docs page with usage + theming examples**
 
 Run and implement in `apps/docs/app/components/button/page.tsx` with:
 - default
@@ -458,19 +449,19 @@ Run and implement in `apps/docs/app/components/button/page.tsx` with:
 - token-themed example
 - accessibility notes
 
-- [x] **Step 5: Re-run tests**
+- [ ] **Step 5: Re-run tests**
 
 Run: `npm run test:unit -- tests/unit/button.test.tsx`
 Expected: PASS.
 
-- [x] **Step 6: Verify docs page route renders**
+- [ ] **Step 6: Verify docs page route renders**
 
 Run: `npm run test:e2e -- tests/e2e/button-docs.spec.ts`
 Expected: PASS with:
 - visible sections: `Default`, `Variants`, `Disabled`, `Theming`, `Accessibility`
 - automated accessibility assertion: no critical violations via axe check on `/components/button`
 
-- [x] **Step 7: Commit**
+- [ ] **Step 7: Commit**
 
 ```bash
 git add packages/fluid-react/src/headless/button packages/fluid-react/src/styled/button apps/docs/app/components/button/page.tsx tests/unit/button.test.tsx tests/e2e/button-docs.spec.ts
@@ -533,7 +524,7 @@ git commit -m "docs: add chunk-1 academy learning artifacts"
 - Modify: `/home/amar/dev/FLUID/packages/fluid-react/package.json`
 - Test: `/home/amar/dev/FLUID/tests/unit/build-artifacts.test.ts`
 
-- [x] **Step 1: Write failing build artifact test**
+- [ ] **Step 1: Write failing build artifact test**
 
 ```ts
 import { existsSync } from "node:fs";
@@ -549,12 +540,12 @@ describe("build artifacts", () => {
 });
 ```
 
-- [x] **Step 2: Run test and confirm failure**
+- [ ] **Step 2: Run test and confirm failure**
 
 Run: `npm run test:unit -- tests/unit/build-artifacts.test.ts`
 Expected: FAIL (no artifacts yet).
 
-- [x] **Step 3: Implement build pipeline**
+- [ ] **Step 3: Implement build pipeline**
 
 Add Vite config to emit:
 - JS entrypoints
@@ -562,7 +553,7 @@ Add Vite config to emit:
 - copied/generated `src/styles/dist/fluid.css`
 - `dist/tailwind-preset.js` export
 
-- [x] **Step 4: Build package and re-run test**
+- [ ] **Step 4: Build package and re-run test**
 
 Run:
 - `npm run -w @fluid-ui/react build`
@@ -572,7 +563,7 @@ Run:
 
 Expected: all PASS (`root-ok` and `preset-ok` printed).
 
-- [x] **Step 5: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 git add packages/fluid-react/vite.config.ts packages/fluid-react/src/styles packages/fluid-react/package.json tests/unit/build-artifacts.test.ts
@@ -591,7 +582,7 @@ git commit -m "feat: add css and tailwind preset build artifacts"
 Tier A target set:
 - IconButton, Input, Textarea, Select, Checkbox, RadioGroup, Switch, Card, Modal
 
-- [x] **Step 1: Add failing tests for each Tier A component**
+- [ ] **Step 1: Add failing tests for each Tier A component**
 
 Test matrix per component:
 - render contract
@@ -600,19 +591,19 @@ Test matrix per component:
 - keyboard path (where interactive)
 - hydration safety test (no SSR hydration mismatch for interactive components)
 
-- [x] **Step 2: Run tests to verify failures**
+- [ ] **Step 2: Run tests to verify failures**
 
 Run: `npm run test:unit -- tests/unit/tier-a`
 Expected: FAIL due to missing implementations.
 
-- [x] **Step 3: Implement components headless-first, then styled wrappers**
+- [ ] **Step 3: Implement components headless-first, then styled wrappers**
 
 For each component:
 - add headless behavior module
 - add styled wrapper
 - export from entrypoints
 
-- [x] **Step 4: Add docs matrix pages**
+- [ ] **Step 4: Add docs matrix pages**
 
 Each Tier A docs page must include:
 - default usage
@@ -621,17 +612,17 @@ Each Tier A docs page must include:
 - theming example
 - accessibility notes
 
-- [x] **Step 4A: Run automated accessibility checks for Tier A routes**
+- [ ] **Step 4A: Run automated accessibility checks for Tier A routes**
 
 Run: `npm run test:e2e -- tests/e2e/tier-a-a11y.spec.ts`
 Expected: PASS with no critical axe violations for all Tier A component routes.
 
-- [x] **Step 5: Re-run tests**
+- [ ] **Step 5: Re-run tests**
 
 Run: `npm run test:unit -- tests/unit/tier-a`
 Expected: PASS.
 
-- [x] **Step 6: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
 git add packages/fluid-react/src apps/docs/app/components tests/unit/tier-a tests/e2e/tier-a-a11y.spec.ts
@@ -654,13 +645,13 @@ Tier B:
 Tier C:
 - DataTable, DatePicker, CommandPalette, Combobox
 
-- [x] **Step 1: Write failing tests for Tier B/C behavior baseline**
+- [ ] **Step 1: Write failing tests for Tier B/C behavior baseline**
 
 Include for every component:
 - render and primary interaction
 - explicit maturity metadata presence
 
-- [x] **Step 2: Run tests to verify failure**
+- [ ] **Step 2: Run tests to verify failure**
 
 Run:
 - `npm run test:unit -- tests/unit/tier-b`
@@ -668,7 +659,7 @@ Run:
 
 Expected: FAIL.
 
-- [x] **Step 3: Implement components + docs + maturity labels**
+- [ ] **Step 3: Implement components + docs + maturity labels**
 
 Add maturity metadata map:
 ```json
@@ -711,7 +702,7 @@ Tier A components remain labeled `A` in docs metadata:
 Tier C docs requirement:
 - every Tier C component page must include `Experimental` badge and a `Caveats` section listing known limits.
 
-- [x] **Step 4: Re-run tests**
+- [ ] **Step 4: Re-run tests**
 
 Run:
 - `npm run test:unit -- tests/unit/tier-b`
@@ -719,12 +710,12 @@ Run:
 
 Expected: PASS.
 
-- [x] **Step 4A: Run automated accessibility checks for Tier B routes**
+- [ ] **Step 4A: Run automated accessibility checks for Tier B routes**
 
 Run: `npm run test:e2e -- tests/e2e/tier-b-a11y.spec.ts`
 Expected: PASS with no critical axe violations for all Tier B component routes.
 
-- [x] **Step 5: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 git add packages/fluid-react/src apps/docs tests/unit/tier-b tests/unit/tier-c tests/e2e/tier-b-a11y.spec.ts
@@ -773,11 +764,6 @@ CI docs smoke command details:
 - `npm run -w apps/docs build`
 - `npm run -w apps/docs start -- --port 3000`
 - run Playwright after docs server is reachable
-- include component-level semantic checks on representative docs routes (landmarks/headings/basic metadata hooks present)
-
-SEO responsibility split for Task 8:
-- library (`@fluid-ui/react`) must remain SEO-enabling: semantic and accessible component output, SSR-safe composition points, optional generic metadata/schema helpers,
-- app/template layer owns SEO-deciding policy: page titles/descriptions/canonicals, OG/Twitter values, sitemap/robots, linking/content strategy.
 
 `apps/docs/package.json` must define:
 - name: `@fluid-ui/docs`
@@ -881,6 +867,27 @@ Expected: PASS with required academy topic markers present.
 git add docs/academy
 git commit -m "docs: add academy learning artifacts for v1 implementation"
 ```
+
+## Next Milestone: Centralized Theme Tokenization (Dashboard-Ready Foundation)
+
+Goal:
+- Make global color updates possible from a single source and prepare for future end-user theme dashboard controls.
+
+### Task 10: Replace Hardcoded Component Colors With Central Tokens
+
+**Files:**
+- Modify: `/home/amar/dev/FLUID/packages/fluid-react/src/styles/tailwind/index.css`
+- Modify: `/home/amar/dev/FLUID/apps/docs/src/DocsApp.tsx`
+- Modify component wrappers in `/home/amar/dev/FLUID/packages/fluid-react/src/styled/*` as needed for component-specific variant/themed class hooks
+- Test: `/home/amar/dev/FLUID/tests/unit/*`
+- Test: `/home/amar/dev/FLUID/tests/e2e/*`
+
+- [x] **Step 1: Introduce centralized CSS variables (`:root`)**
+- [x] **Step 2: Replace hardcoded color literals in component classes with token variables**
+- [x] **Step 3: Standardize docs route examples so each component shows meaningful `default` / `variants` / `theming` visual differences**
+- [ ] **Step 4: Add runtime token override contract (e.g., data-theme / inline style variable injection API)**
+- [ ] **Step 5: Add persisted theme profile schema for future dashboard integration**
+- [ ] **Step 6: Commit**
 
 ## Final Verification Gate
 

@@ -1,0 +1,8 @@
+title = "FLUID gitleaks config"
+
+[allowlist]
+description = "Allow non-secret references in security tooling docs/scripts."
+paths = [
+  '''scripts/security/prepush-security\.sh''',
+  '''docs/academy/repo-visibility-and-security-checklist\.md'''
+]

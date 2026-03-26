@@ -1,0 +1,20 @@
+{
+  "name": "@fluid-ui/react",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf dist src/styles/dist",
+    "build:ts": "tsc -p tsconfig.build.json",
+    "build:css": "mkdir -p src/styles/dist && cp src/styles/tailwind/index.css src/styles/dist/fluid.css",
+    "build": "npm run clean && npm run build:ts && npm run build:css"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./headless": "./dist/headless/index.js",
+    "./tokens": "./dist/tokens/index.js",
+    "./tailwind-preset": "./dist/tailwind-preset.js",
+    "./styles.css": "./src/styles/dist/fluid.css"
+  }
+}

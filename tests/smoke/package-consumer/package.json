@@ -1,0 +1,16 @@
+{
+  "name": "@fluid-ui/smoke-consumer",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@fluid-ui/react": "file:../../../packages/fluid-react",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "vite": "^7.1.0"
+  }
+}
