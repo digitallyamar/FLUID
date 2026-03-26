@@ -2,6 +2,43 @@
 
 FLUID is a React component library workspace centered on `@fluid-ui/react`, with docs and verification tooling in the same repository.
 
+## Clone and Run (Every New Clone)
+
+Use this flow each time you clone FLUID locally:
+
+```bash
+git clone <your-repo-url>
+cd FLUID
+npm install
+npm run setup:hooks
+```
+
+Why `npm run setup:hooks` matters:
+- It configures `git` to use this repo's local hooks directory (`.githooks`).
+- It enables automatic security checks on every `git push` via the `pre-push` hook.
+
+You can verify hook setup with:
+
+```bash
+git config --get core.hooksPath
+```
+
+Expected output:
+
+```text
+.githooks
+```
+
+Run the repo locally:
+
+```bash
+npm run lint
+npm run typecheck
+npm run test:unit
+npm run build
+npm run -w @fluid-ui/docs start -- --port 3000
+```
+
 ## Workspace Verification
 
 Run the local verification suite:
