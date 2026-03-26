@@ -27,13 +27,14 @@ import {
   Tooltip
 } from "@fluid-ui/react";
 import {
-  applyThemeVariables,
+  applyRuntimeThemeOverride,
   clearThemeVariables,
   createTheme,
-  themeContractToVariables
+  type ThemeContract
 } from "@fluid-ui/react/tokens";
 import maturityMap from "../content/maturity.json";
 import themeProfilesData from "../content/theme-profiles.json";
+import { createThemeProfileStore, type ThemeColorOverrideKey } from "./theme/profileStore";
 import firstPrinciplesMarkdown from "../../../docs/academy/first-principles-web-fundamentals.md?raw";
 import sessionHandoffMarkdown from "../../../docs/academy/session-handoff-guide.md?raw";
 import questionBankMarkdown from "../../../docs/academy/first-principles-question-bank.md?raw";
@@ -50,17 +51,18 @@ import reactRenderEventModelMarkdown from "../../../docs/academy/deep-dives/reac
 import buildPipelineAnatomyMarkdown from "../../../docs/academy/deep-dives/build-pipeline-anatomy.md?raw";
 import ssrHydrationConstraintsMarkdown from "../../../docs/academy/deep-dives/ssr-hydration-constraints.md?raw";
 
-const THEME_STORAGE_KEY = "fluid-docs-theme-id";
+const THEME_STORAGE_KEY = "fluid-docs-theme-state";
+const themeProfileStore = createThemeProfileStore({ storageKey: THEME_STORAGE_KEY });
 
 type ThemeProfile = {
   id: string;
   label: string;
   description: string;
-  tokens: Parameters<typeof createTheme>[0];
+  tokens: ThemeContract;
 };
 
 const themeProfiles = themeProfilesData.profiles as ThemeProfile[];
-type EditableThemeColorKey = "primary" | "surface" | "text" | "muted" | "theme";
+type EditableThemeColorKey = ThemeColorOverrideKey;
 
 const editableThemeColorFields: Array<{ key: EditableThemeColorKey; label: string; ariaLabel: string }> = [
   { key: "primary", label: "Primary", ariaLabel: "Primary color token" },
@@ -236,11 +238,16 @@ export function DocsApp() {
     if (typeof window === "undefined") {
       return themeProfiles[0]?.id ?? "default";
     }
-    return window.localStorage.getItem(THEME_STORAGE_KEY) ?? themeProfiles[0]?.id ?? "default";
+    return themeProfileStore.load()?.profileId ?? themeProfiles[0]?.id ?? "default";
   });
   const [themeColorOverrides, setThemeColorOverrides] = React.useState<
     Partial<Record<EditableThemeColorKey, string>>
-  >({});
+  >(() => {
+    if (typeof window === "undefined") {
+      return {};
+    }
+    return themeProfileStore.load()?.colorOverrides ?? {};
+  });
   const appliedThemeVariablesRef = React.useRef<string[]>([]);
   const activeThemeProfile =
     themeProfiles.find((profile) => profile.id === activeThemeId) ?? themeProfiles[0];
@@ -258,11 +265,15 @@ export function DocsApp() {
         ...themeColorOverrides
       }
     };
-    const variables = themeContractToVariables(createTheme(resolvedThemeTokens));
-    applyThemeVariables(variables);
-    appliedThemeVariablesRef.current = Object.keys(variables);
-    document.documentElement.setAttribute("data-fluid-theme", activeThemeProfile.id);
-    window.localStorage.setItem(THEME_STORAGE_KEY, activeThemeProfile.id);
+    const result = applyRuntimeThemeOverride({
+      theme: createTheme(resolvedThemeTokens),
+      themeId: activeThemeProfile.id
+    });
+    appliedThemeVariablesRef.current = result.variableNames;
+    themeProfileStore.save({
+      profileId: activeThemeProfile.id,
+      colorOverrides: themeColorOverrides
+    });
   }, [activeThemeProfile, themeColorOverrides]);
 
   const themeDashboard = (
