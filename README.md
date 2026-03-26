@@ -43,3 +43,4 @@ npm run release
 
 - See `docs/academy/repo-visibility-and-security-checklist.md`.
 - Run `npm run prepush:security` before pushing.
+- Run `npm run setup:hooks` once per clone to auto-run security sweep on every `git push`.

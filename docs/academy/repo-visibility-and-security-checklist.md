@@ -32,19 +32,17 @@ Use this checklist before making the repo public and before pushing significant 
   - `scripts/security/prepush-security.sh`
 - NPM command:
   - `npm run prepush:security`
+- Git hook bootstrap:
+  - `npm run setup:hooks` (one-time per clone)
+  - installs `.githooks/pre-push` via `core.hooksPath`
 - CI enforcement:
   - `.github/workflows/ci.yml` includes a `Security sweep` step on push/PR.
+  - `.github/workflows/ci.yml` includes `gitleaks` scanning for working tree + git history.
 
 ## Optional: Enforce Local Git Hook
 
-To run the security sweep automatically on every local push:
+One-time setup (recommended):
 
 ```bash
-mkdir -p .githooks
-cat > .githooks/pre-push <<'EOF'
-#!/usr/bin/env bash
-npm run prepush:security
-EOF
-chmod +x .githooks/pre-push
-git config core.hooksPath .githooks
+npm run setup:hooks
 ```
